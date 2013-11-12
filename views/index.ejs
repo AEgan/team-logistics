@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Why does this not work</title>
+		<title>MongoDB Example</title>
+		<script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="javascripts/application.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/application.css">
 	</head>
 	<body>
-		<b>Here</b>
-		<%= title %>
+		<h1>Team Logistics</h1>
+		<h2>Create a new User</h2>
+		<form id="f1">
+			Username<input type="text" id="username" name="username" placeholder="username"><br>
+			Password<input type="password" id="password" name="password"><br>
+			Password Confirmation<input type="password" id="password_confirmation" name="password_confirmation"><br>
+			<input type="submit" value="Create">
+		</form>
 	</body>
 </html> 
