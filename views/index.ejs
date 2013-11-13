@@ -23,5 +23,12 @@
 			<input type="text" id="findUsername" name="username" placeholder="username">
 			<input type="submit" value="Search">
 		</form>
+
+		<h2>Update an existing user</h2>
+		<form id="updateForm" action="/users/edit" method="post">
+			Current Username<input type="text" name="username" id="updateUsername">
+			New Password<input type="text" name="password" id="updatePassword">
+			<input type="submit" value="Update">
+		</form>
 	</body>
 </html> 

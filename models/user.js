@@ -47,12 +47,12 @@ exports.find = function(query, callback) {
 /*
  * Update a user
  */
-exports.update = function(query, callback) {
+exports.update = function(username, newPassword, callback) {
 	mongoClient.connect(server+database, function(err, db) {
 		if(err) {
 			doError(err);
 		}
-		db.collection(collection).update(JSON.parse(query.find), JSON.parse(query.update), {new:true}, function(err, crsr) {
+		db.collection(collection).update({"username": username}, {'$set': {'password': newPassword}}, {new:true}, function(err, crsr) {
 			if(err) {
 				doError(err);
 			}

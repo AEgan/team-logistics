@@ -26,7 +26,7 @@ exports.find = function(req, res) {
  */
 exports.update = function(req, res) {
 	console.log('in update');
-	users.update(req.query, function(model) {
+	users.update(req.body.username, req.body.password, function(model) {
 		res.render('userPage', {title:'worked', obj:model});
 	});
 }
