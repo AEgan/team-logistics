@@ -15,7 +15,7 @@ app.configure(function() {
 
 app.get('/', routes.index);
 app.post('/signup', users.insert);
-app.get('/users/:id', users.find);
+app.get('/users/find', users.find);
 app.post('/users/:id/edit', users.update);
 
 app.listen(12345);

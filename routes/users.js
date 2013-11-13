@@ -8,7 +8,7 @@ exports.insert = function(req, res) {
 	var username = req.body.username;
 	var password = req.body.password;
 	users.insert(username, password, function(model) {
-		res.render('userPage', {title:"worked", obj:model});
+		res.render('userPage', {title:"Inserted the following object", obj:model});
 	});
 }
 
@@ -16,8 +16,7 @@ exports.insert = function(req, res) {
  * Find a user
  */
 exports.find = function(req, res) {
-	console.log('in find');
-	console.log(req);
+	var username = req.body.username;
 	users.find(req.query, function(model) {
 		res.render('userPage', {title:"worked", obj:model});
 	});

@@ -29,12 +29,13 @@ exports.insert = function(username, password, callback) {
 /*
  * Find a user
  */
-exports.find = function(query, callback) {
+exports.find = function(username, callback) {
+	console.log("username is " + JSON.stringify(username));
 	mongoClient.connect(server+database, function(err, db) {
 		if(err) {
 			doError(err);
 		}
-		var crsr = db.collection(collection).find(query);
+		var crsr = db.collection(collection).find(username);
 		crsr.toArray(function(err, docs){
 			if(err) {
 				doError(err);
