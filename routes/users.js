@@ -16,7 +16,6 @@ exports.insert = function(req, res) {
  * Find a user
  */
 exports.find = function(req, res) {
-	var username = req.body.username;
 	users.find(req.query, function(model) {
 		res.render('userPage', {title:"worked", obj:model});
 	});
