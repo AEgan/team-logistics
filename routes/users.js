@@ -4,7 +4,6 @@ var users = require('../models/user.js');
  * Insert a new user
  */
 exports.insert = function(req, res) {
-	console.log('in insert');
 	var username = req.body.username;
 	var password = req.body.password;
 	users.insert(username, password, function(model) {
@@ -25,8 +24,16 @@ exports.find = function(req, res) {
  * Update a user
  */
 exports.update = function(req, res) {
-	console.log('in update');
 	users.update(req.body.username, req.body.password, function(model) {
 		res.render('userPage', {title:'worked', obj:model});
+	});
+}
+
+/*
+ * Destroys a user
+ */
+exports.destroy = function(req, res) {
+	users.destroy(req.body.username, function(model) {
+		res.render('userPage', {title: 'worked', obj:model});
 	});
 }

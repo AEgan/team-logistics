@@ -56,7 +56,24 @@ exports.update = function(username, newPassword, callback) {
 			if(err) {
 				doError(err);
 			}
-			callback('Update succeeded');
+			callback("Update Worked");
 		});
+	});
+}
+
+/* 
+ * Deletes a user
+ */
+exports.destroy = function(username, callback) {
+	mongoClient.connect(server+database, function(err, db) {
+		if(err) {
+			doError(err);
+		}
+		db.collection(collection).findAndRemove({"username": username}, ["username", "ascending"], function(err, doc) {
+			if(err) {
+				doError(err);
+			}
+			callback("Successfully Removed");
+		});	
 	});
 }

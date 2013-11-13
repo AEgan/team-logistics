@@ -17,6 +17,7 @@ app.get('/', routes.index);
 app.post('/signup', users.insert);
 app.get('/users/find', users.find);
 app.post('/users/edit', users.update);
+app.post('/users/destroy', users.destroy);
 
 app.listen(12345);
 console.log("======================================");
