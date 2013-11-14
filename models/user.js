@@ -15,12 +15,12 @@ var doError = function(error) {
 /*
  * Insert a new user
  */
-exports.insert = function(username, password, callback) {
+exports.insert = function(username, password, active, callback) {
 	mongoClient.connect(server+database, function(err, db) {
 		if(err) {
 			doError(err);
 		}
-		db.collection(collection).insert({"username": username, "password": password}, {safe:true}, function(err, crsr) {
+		db.collection(collection).insert({"username": username, "password": password, "active": active}, {safe:true}, function(err, crsr) {
 			callback(crsr);
 		});
 	});
@@ -47,12 +47,12 @@ exports.find = function(query, callback) {
 /*
  * Update a user
  */
-exports.update = function(username, newPassword, callback) {
+exports.update = function(username, newPassword, active, callback) {
 	mongoClient.connect(server+database, function(err, db) {
 		if(err) {
 			doError(err);
 		}
-		db.collection(collection).update({"username": username}, {'$set': {'password': newPassword}}, {new:true}, function(err, crsr) {
+		db.collection(collection).update({"username": username}, {'$set': {'password': newPassword, 'active':active}}, {new:true}, function(err, crsr) {
 			if(err) {
 				doError(err);
 			}

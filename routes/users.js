@@ -6,7 +6,14 @@ var users = require('../models/user.js');
 exports.insert = function(req, res) {
 	var username = req.body.username;
 	var password = req.body.password;
-	users.insert(username, password, function(model) {
+	var active = true;
+	if(req.body.active == "on") {
+		active = true;
+	}
+	else {
+		active = false;
+	}
+	users.insert(username, password, active, function(model) {
 		res.render('userPage', {title:"Inserted the following object", obj:model});
 	});
 }
@@ -24,7 +31,14 @@ exports.find = function(req, res) {
  * Update a user
  */
 exports.update = function(req, res) {
-	users.update(req.body.username, req.body.password, function(model) {
+	var active = true;
+	if(req.body.active == "on") {
+		active = true;
+	}
+	else {
+		active = false;
+	}
+	users.update(req.body.username, req.body.password, active, function(model) {
 		res.render('userPage', {title:'worked', obj:model});
 	});
 }
