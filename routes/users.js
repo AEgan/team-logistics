@@ -6,6 +6,10 @@ var users = require('../models/user.js');
 exports.insert = function(req, res) {
 	var username = req.body.username;
 	var password = req.body.password;
+	var password_confirmation = req.body.passwordconfirmation;
+	if(password !== password_confirmation) {
+		res.render('userPage', {title:"Password fields did not match", obj:""});
+	}
 	var active = true;
 	if(req.body.active == "on") {
 		active = true;

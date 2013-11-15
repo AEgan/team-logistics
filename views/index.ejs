@@ -14,6 +14,7 @@
 		<form id="f1" action="/signup" method="post">
 			Username<input type="text" id="username" name="username" placeholder="username"><br>
 			Password<input type="password" id="password" name="password"><br>
+			Password Confirmation<input type="password" id="passwordconfirmation" name="passwordconfirmation"><br>
 			Active?<input type="checkbox" name="active" id="active"><br>
 			<input type="submit" value="Create">
 		</form>
@@ -28,7 +29,7 @@
 		<form id="updateForm" action="/users/edit" method="post">
 			Current Username<input type="text" name="username" id="updateUsername"><br>
 			New Password<input type="password" name="password" id="updatePassword"><br>
-			Active?<input type="checkbox" name="active" id="active">
+			Active?<input type="checkbox" name="active" id="updateActive">
 			<input type="submit" value="Update">
 		</form>
 
