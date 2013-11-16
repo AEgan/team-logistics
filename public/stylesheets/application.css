@@ -1,14 +1,32 @@
 body {
-	font-size: 16px;
+	width: 100%;
 	color: #121212;
+	background-color: #FFFFFF;
+	margin: 0px 0px 0px 0px;
+	font-size: 12px;
 }
 
-h1 {
-	font-size: 26px;
-	color: #0000FF;
+#custNav > ul {
+	margin-top: 0px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: #1B6617;
+	content: " ";
 }
 
-h2 {
-	font-size: 20px;
-	color: #FF0000;
+#custNav > ul > li {
+	color: #FFFFFF;
+	display: inline;
+	font-size: x-large;
+	margin-right: 12px;
+}
+
+#custNav > ul > li > a {
+	font-size: large;
+	text-decoration: none;
+	color: #EEEEEE;
+}
+
+#custNav > ul > li > a:hover {
+	color: #FFFFFF;
 }

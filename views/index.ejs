@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>MongoDB Example</title>
+		<title>Team Logistics</title>
 		<script
       src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
     </script>
@@ -9,34 +9,10 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/application.css">
 	</head>
 	<body>
-		<h1>Team Logistics</h1>
-		<h2>Create a new User</h2>
-		<form id="f1" action="/signup" method="post">
-			Username<input type="text" id="username" name="username" placeholder="username"><br>
-			Password<input type="password" id="password" name="password"><br>
-			Password Confirmation<input type="password" id="passwordconfirmation" name="passwordconfirmation"><br>
-			Active?<input type="checkbox" name="active" id="active"><br>
-			<input type="submit" value="Create">
-		</form>
-
-		<h2>Search for a user</h2>
-		<form id="findForm" action="/users/find" method="get">
-			<input type="text" id="findUsername" name="username" placeholder="username">
-			<input type="submit" value="Search">
-		</form>
-
-		<h2>Update an existing user</h2>
-		<form id="updateForm" action="/users/edit" method="post">
-			Current Username<input type="text" name="username" id="updateUsername"><br>
-			New Password<input type="password" name="password" id="updatePassword"><br>
-			Active?<input type="checkbox" name="active" id="updateActive">
-			<input type="submit" value="Update">
-		</form>
-
-		<h2>Destroy a User</h2>
-		<form id="destroyForm" action="/users/destroy" method="post">
-			<input type="text" id="destroyUsername" name="username" placeholder="username">
-			<input type="submit" value="Destroy">
-		</form>
+		<% include navigation.ejs %>
+		<h1>Welcome to Team Logistics!</h1>
+		<ul>
+			<li>link to teams</li>
+		</ul>
 	</body>
-</html> 
+</html>
