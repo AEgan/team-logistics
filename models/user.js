@@ -1,3 +1,9 @@
+/*
+ * The user model. Users will have a username, password (will be secured later)
+ * active field, street, city, state, and zip (for location purposes)
+ * as well as a role (for admin/member)
+ */
+
 var util = require("util");
 var mongoClient = require("mongodb").MongoClient;
 var server = "mongodb://localhost:27017/";
@@ -15,12 +21,12 @@ var doError = function(error) {
 /*
  * Insert a new user
  */
-exports.insert = function(username, password, active, callback) {
+exports.insert = function(username, password, active, street, city, state, zip, role, callback) {
 	mongoClient.connect(server+database, function(err, db) {
 		if(err) {
 			doError(err);
 		}
-		db.collection(collection).insert({"username": username, "password": password, "active": active}, {safe:true}, function(err, crsr) {
+		db.collection(collection).insert({"username": username, "password": password, "active": active, "street": street, "city": city, "state": state, "zip": zip, "role": role}, {safe:true}, function(err, crsr) {
 			callback(crsr);
 		});
 	});
@@ -45,14 +51,14 @@ exports.find = function(query, callback) {
 }
 
 /*
- * Update a user
+ * Update a user. Note lack of role, users won't be able to update their own role
  */
-exports.update = function(username, newPassword, active, callback) {
+exports.update = function(username, newPassword, active, street, city, state, zip, callback) {
 	mongoClient.connect(server+database, function(err, db) {
 		if(err) {
 			doError(err);
 		}
-		db.collection(collection).update({"username": username}, {'$set': {'password': newPassword, 'active':active}}, {new:true}, function(err, crsr) {
+		db.collection(collection).update({"username": username}, {'$set': {'password': newPassword, 'active':active, "street": street, "city": city, "state": state, "zip": zip, "role": role}}, {new:true}, function(err, crsr) {
 			if(err) {
 				doError(err);
 			}
