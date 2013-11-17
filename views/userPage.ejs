@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><%= title %></title>
+		<title><%= obj.username %></title>
 		<script
       src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
     </script>
@@ -10,8 +10,14 @@
 	</head>
 	<body>
 		<% include navigation.ejs %>
-		<h1><%= header %></h1>
-		<p><%= JSON.stringify(obj) %></p>
-		<p>hello</p>
+		<div id="mainContent">
+			<h1><%= obj.username %></h1>
+			<img src="../images/bonesaw.jpg" width="300" height="264"><br>
+			<b><%= obj.street %></b><br>
+			<b><%= obj.city + ", " + obj.state %></b><br>
+			<b><%= obj.zip %></b>
+			<p><%= JSON.stringify(obj) %></p>
+			<p>hello</p>
+		</div>
 	</body>
 </html>

@@ -3,7 +3,7 @@ body {
 	color: #121212;
 	background-color: #FFFFFF;
 	margin: 0px 0px 0px 0px;
-	font-size: 12px;
+	font-size: 110%;
 }
 
 #custNav > ul {
@@ -29,4 +29,9 @@ body {
 
 #custNav > ul > li > a:hover {
 	color: #FFFFFF;
+}
+
+#mainContent {
+	margin-right: 6%;
+	margin-left: 6%;
 }
