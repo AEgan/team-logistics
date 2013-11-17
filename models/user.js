@@ -50,6 +50,18 @@ exports.find = function(query, callback) {
 	});
 }
 
+exports.show = function(username, callback) {
+	mongoClient.connect(server+database, function(err, db) {
+		if(err) {
+			doError(err);
+		}
+		var  crsr = db.collection(collection).find({username: username});
+		crsr.toArray(function(err, docs){
+			callback(docs[0]);
+		});
+	});
+}
+
 /*
  * Update a user. Note lack of role, users won't be able to update their own role
  */

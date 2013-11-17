@@ -55,3 +55,9 @@ exports.destroy = function(req, res) {
 		res.render('userPage', {title: 'worked', obj:model});
 	});
 }
+
+exports.show = function(req, res) {
+	users.show(req.params.username, function(model) {
+		res.render('userPage', {title: "title test", header: "hi", obj: model});
+	});
+}

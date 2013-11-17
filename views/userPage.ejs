@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Here</title>
+		<title><%= title %></title>
+		<script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="../javascripts/application.js"></script>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/application.css">
 	</head>
 	<body>
-		<h1><%= title %></h1>
+		<% include navigation.ejs %>
+		<h1><%= header %></h1>
 		<p><%= JSON.stringify(obj) %></p>
+		<p>hello</p>
 	</body>
 </html>
