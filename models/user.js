@@ -50,6 +50,9 @@ exports.find = function(query, callback) {
 	});
 }
 
+/*
+ * shows a user
+ */
 exports.show = function(username, callback) {
 	mongoClient.connect(server+database, function(err, db) {
 		if(err) {

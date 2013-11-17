@@ -22,6 +22,9 @@ app.post('/users/edit', users.update);
 app.post('/users/destroy', users.destroy);
 app.get('/users/:username', users.show);
 app.get('/teams', teams.index);
+app.get('/teams/new', teams.newTeam);
+app.post('/teams/insert', teams.insert);
+app.get('/teams/:name', teams.show);
 
 app.listen(12345);
 console.log("======================================");

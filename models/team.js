@@ -24,13 +24,13 @@ var doError = function(error) {
 /*
  * Insert a new team
  */
-exports.insert = function(name, sport, coach, active) {
+exports.insert = function(name, sport, coach, active, callback) {
 	mongoClient.connect(server+database, function(err, db) {
 		if(err) {
 			doError(err);
 		}
 		db.collection(collection).insert({"name": name, "sport": sport, "coach": coach, "active": active}, {safe:true}, function(err, crsr) {
-			callback(crsr);
+			callback(crsr[0]);
 		});
 	});
 }
@@ -64,6 +64,21 @@ exports.find = function(query, callback) {
 				doError(err);
 			}
 			callback(docs);
+		});
+	});
+}
+
+/*
+ * shows a team
+ */
+exports.show = function(name, callback) {
+	mongoClient.connect(server+database, function(err, db) {
+		if(err) {
+			doError(err);
+		}
+		var  crsr = db.collection(collection).find({name: name});
+		crsr.toArray(function(err, docs){
+			callback(docs[0]);
 		});
 	});
 }

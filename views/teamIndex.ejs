@@ -11,15 +11,16 @@
 	<body>
 		<% include navigation.ejs %>
 		<div id="mainContent">
-			<p>Here</p>
+			<h1>Teams</h1>
 			<% if(teams.length === 0) { %>
 				<p>There are no teams to display</p>
 			<% } else { %>
 				<% for(var i = 0; i < teams.length; i++) {%>
-				<li><%= obj[i].name %></li>
+				<li><a href=<%= "/teams/"+teams[i].name %>><%=teams[i].name + " " + teams[i].sport %></a></li>
 				<% }%>
 			<% } %>
-			<a href="#" class="newObjButton">New Team</a>
+			<br>
+			<a href="/teams/new" class="newObjButton">New Team</a>
 		</div>
 	</body>
 </html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="../javascripts/application.js"></script>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/application.css">
+	</head>
+	<body>
+		<% include navigation.ejs %>
+		<div id="mainContent">
+			<h1><%= team.name + " " + team.sport %></h1>
+			<table id="profileTable">
+				<tr>
+					<td>
+					<img src="../images/bonesaw.jpg" width="300" height="264">
+					<p><%= team.name + " " + team.sport + " coached by " + team.coach %></p>
+					</td>
+					<td>
+						<!-- Saying this for now until I have team-user relationships set up -->
+						<b>There are no people currently on this team</b>
+					</td>
+				</tr>
+			</table>
+			<b><%= JSON.stringify(team) %></b>
+		</div>
+	</body>
+</html>
