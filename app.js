@@ -2,6 +2,7 @@ var express = require('express');
 var helpers = require('express-helpers');
 var routes = require('./routes');
 var users = require('./routes/users');
+var teams = require('./routes/team_controller');
 var app = express();
 
 app.configure(function() {
@@ -20,6 +21,7 @@ app.get('/users/find', users.find);
 app.post('/users/edit', users.update);
 app.post('/users/destroy', users.destroy);
 app.get('/users/:username', users.show);
+app.get('/teams', teams.index);
 
 app.listen(12345);
 console.log("======================================");

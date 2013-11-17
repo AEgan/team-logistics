@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Teams</title>
+		<script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="javascripts/application.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/application.css">
+	</head>
+	<body>
+		<% include navigation.ejs %>
+		<div id="mainContent">
+			<p>Here</p>
+			<% if(teams.length === 0) { %>
+				<p>There are no teams to display</p>
+			<% } else { %>
+				<% for(var i = 0; i < teams.length; i++) {%>
+				<li><%= obj[i].name %></li>
+				<% }%>
+			<% } %>
+			<a href="#" class="newObjButton">New Team</a>
+		</div>
+	</body>
+</html>

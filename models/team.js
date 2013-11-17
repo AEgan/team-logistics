@@ -35,6 +35,21 @@ exports.insert = function(name, sport, coach, active) {
 	});
 }
 
+ /*
+  * List all teams
+  */
+exports.list = function(callback) {
+	mongoClient.connect(server+database, function(err, db) {
+		if(err) {
+			doError(err);
+		}
+		var crsr = db.collection(collection).find();
+		crsr.toArray(function(err, docs) {
+			callback(docs);
+		});
+	});
+}
+
 /*
  * Find a team
  */
