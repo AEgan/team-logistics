@@ -1,4 +1,5 @@
 var express = require('express');
+var helpers = require('express-helpers');
 var routes = require('./routes');
 var users = require('./routes/users');
 var app = express();

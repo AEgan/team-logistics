@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title><%= obj.username %></title>
-		<script
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title><%= obj.username %></title>
+    <script
       src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
     </script>
     <script type="text/javascript" src="../javascripts/application.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/application.css">
-	</head>
-	<body>
-		<% include navigation.ejs %>
-		<div id="mainContent">
-			<h1><%= obj.username %></h1>
-			<img src="../images/bonesaw.jpg" width="300" height="264"><br>
-			<b><%= obj.street %></b><br>
-			<b><%= obj.city + ", " + obj.state %></b><br>
-			<b><%= obj.zip %></b>
-			<p><%= JSON.stringify(obj) %></p>
-			<p>hello</p>
-		</div>
-	</body>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/application.css">
+  </head>
+  <body>
+  	<% include navigation.ejs %>
+  	<div id="mainContent">
+  		<h1><%= obj.username %></h1>
+      <img src="../images/bonesaw.jpg" width="300" height="264"><br>
+      <b><%= obj.street %></b><br>
+      <b><%= obj.city + ", " + obj.state %></b><br>
+      <b><%= obj.zip %></b>
+      <p><%= JSON.stringify(obj) %></p><br>
+      <img src=<%= map %>>
+      </div>
+  </body>
 </html>

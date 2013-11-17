@@ -58,6 +58,7 @@ exports.destroy = function(req, res) {
 
 exports.show = function(req, res) {
 	users.show(req.params.username, function(model) {
-		res.render('userPage', {title: "title test", header: "hi", obj: model});
+		var mapString = "http://maps.googleapis.com/maps/api/staticmap?center="+model.latitude+","+model.longitude+"&zoom=12&size=400x400&sensor=false";
+		res.render('userPage', {title: "title test", header: "hi", obj: model, map: mapString});
 	});
 }

@@ -1,9 +1,15 @@
+html {
+	height: 100%;
+}
+
 body {
 	width: 100%;
 	color: #121212;
 	background-color: #FFFFFF;
 	margin: 0px 0px 0px 0px;
 	font-size: 110%;
+	height: 100%;
+	margin: 0; padding: 0
 }
 
 #custNav > ul {
@@ -35,3 +41,10 @@ body {
 	margin-right: 6%;
 	margin-left: 6%;
 }
+
+#gmapsBlackMagic {
+	height: 100%;
+	margin: 0; 
+	padding: 0;
+}
+#map-canvas { height: 100% }
