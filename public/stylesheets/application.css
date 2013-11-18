@@ -33,6 +33,13 @@ body {
 	color: #EEEEEE;
 }
 
+#custNav > ul > li > a.brand {
+	color: #FFFFFF;
+	display: inline;
+	font-size: x-large;
+	margin-right: 12px;
+}
+
 #custNav > ul > li > a:hover {
 	color: #FFFFFF;
 }
