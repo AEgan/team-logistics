@@ -15,10 +15,25 @@
 			<% if(teams.length === 0) { %>
 				<p>There are no teams to display</p>
 			<% } else { %>
+			<table class="stripedHoveredTable">
+				<thead>
+					<th>Team Name</th>
+					<th>Sport</th>
+					<th>Coach</th>
+					<th></th>
+				</thead>
+				<tbody>
 				<% for(var i = 0; i < teams.length; i++) {%>
-				<li><a href=<%= "/teams/"+teams[i].name %>><%=teams[i].name + " " + teams[i].sport %></a></li>
+				<tr>
+					<td><a href=<%= "/teams/"+teams[i].name %>><%=teams[i].name + " " + teams[i].sport %></a></td>
+					<td><%= teams[i].sport %></td>
+					<td><%= teams[i].coach %></td>
+					<td><a class="details" href=<%= '/teams/'+teams[i].name %>>Details</a></td>
+				</tr>
 				<% }%>
 			<% } %>
+			</tbody>
+			</table>
 			<br>
 			<a href="/teams/new" class="newObjButton">New Team</a>
 		</div>
