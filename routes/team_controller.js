@@ -44,3 +44,30 @@ exports.show = function(req, res) {
 		res.render('teamPage', {team: model});
 	});
 }
+
+/*
+ * goes to a new event page
+ */
+exports.newEventPage = function(req, res) {
+	var name = req.params.name;
+	teams.find(name, function(model) {
+		res.render('newEvent', {"team": model[0]});
+	});
+}
+
+/*
+ * posts a new event
+ */
+exports.postNewEvent = function(req, res) {
+	var name = req.body.name;
+	var street = req.body.street;
+	var city = req.body.city;
+	var state = req.body.state;
+	var zip = req.body.zip;
+	var longitude = req.body.longitude;
+	var latitude = req.body.latitude;
+	var teamName = req.body.teamName;
+	teams.addEvent(name, street, city, state, zip, longitude, latitude, teamName, function(response) {
+		res.render('eventShow');
+	});
+}

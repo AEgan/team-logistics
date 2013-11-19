@@ -25,6 +25,8 @@ app.get('/teams', teams.index);
 app.get('/teams/new', teams.newTeam);
 app.post('/teams/insert', teams.insert);
 app.get('/teams/:name', teams.show);
+app.get('/teams/:name/newEvent', teams.newEventPage);
+app.post('/teams/:name/newEvent', teams.postNewEvent);
 
 app.listen(12345);
 console.log("======================================");

@@ -1,5 +1,6 @@
 /*
- * Team model which will have a team name, sport, coach name, and active
+ * Team model which will have a team name, sport, coach name, and active.
+ * It also has a collection of events which have a name, 
  * sport could be its own model, but for scope reasons it is not
  * Coach could be a user ID but for scope reasons, and for now, it is just going to be a name
  * Examples of name:
@@ -29,7 +30,7 @@ exports.insert = function(name, sport, coach, active, callback) {
 		if(err) {
 			doError(err);
 		}
-		db.collection(collection).insert({"name": name, "sport": sport, "coach": coach, "active": active}, {safe:true}, function(err, crsr) {
+		db.collection(collection).insert({"name": name, "sport": sport, "coach": coach, "events": [], "active": active}, {safe:true}, function(err, crsr) {
 			callback(crsr[0]);
 		});
 	});
@@ -53,12 +54,12 @@ exports.list = function(callback) {
 /*
  * Find a team
  */
-exports.find = function(query, callback) {
+exports.find = function(name, callback) {
 	mongoClient.connect(server+database, function(err, db) {
 		if(err) {
 			doError(err);
 		}
-		var crsr = db.collection(collection).find(query);
+		var crsr = db.collection(collection).find({name: name});
 		crsr.toArray(function(err, docs){
 			if(err) {
 				doError(err);
@@ -130,6 +131,23 @@ exports.deactivate = function(name) {
 				doError(err);
 			}
 			callback("Update Worked");
+		});
+	});
+}
+
+/*
+ * Add an event to a team
+ */
+exports.addEvent = function(name, street, city, state, zip, longitude, latitude, team_name, callback) {
+	mongoClient.connect(server+database, function(err, db) {
+		if(err) {
+			doError(err);
+		}
+		db.collection(collection).update({name: team_name}, {'$push': {"events": {'name': name, 'street': street, 'city':city, 'state': state, 'zip':zip, 'longitude': longitude, 'latitude':latitude}}}, {new:true}, function(err, docs) {
+			if(err) {
+				doError(err);
+			}
+			callback("Event added");
 		});
 	});
 }

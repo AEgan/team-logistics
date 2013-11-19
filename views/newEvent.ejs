@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="../../javascripts/application.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/application.css">
+	</head>
+	<body>
+		<% include navigation.ejs %>
+		<div id="mainContent">
+			<h1>Creating a new Event</h1>
+			<form id="newEventForm" method="post" action=<%= '/teams/'+team.name+'/newEvent'%>>
+				Name<input type="text" name="name"><br>
+				Street<input type="text" name="street"><br>
+				City<input type="text" name="city"><br>
+				State<input type="text" name="state"><br>
+				Zip<input type="text" name="zip"><br>
+				Longitude<input type="text" name="longitude"><br>
+				Latitude<input type="text" name="latitude"><br>
+				<input type="hidden" name="teamName" value=<%= team.name%>>
+				<input type="submit" value="Create Event">
+			</form>
+		</div>
+	</body>
+</html>
