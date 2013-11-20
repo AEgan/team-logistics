@@ -72,3 +72,11 @@ exports.postNewEvent = function(req, res) {
 		res.render('eventShow');
 	});
 }
+
+exports.showEvent = function(req, res) {
+	var eventName = req.params.event;
+	var teamName = req.params.name;
+	teams.showEvent(teamName, eventName, function(model) {
+		res.render('eventShow', {obj: model});
+	});
+}

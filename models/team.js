@@ -168,3 +168,28 @@ exports.activate = function(name) {
 		});
 	});
 }
+
+/*
+ * gets an event to show
+ */
+exports.showEvent = function(teamName, eventName, callback) {
+	mongoClient.connect(server+database, function(err, db) {
+		if(err) {
+			doError(err);
+		}
+		var teams = db.collection(collection).find({"name": teamName});
+		teams.toArray(function(err, docs) {
+			var events = docs[0].events;
+			var found = false;
+			for(var i = 0; i < events.length; i++) {
+				if(events[i]["name"] === eventName) {
+					found = true;
+					callback(events[i]);
+				}
+			}
+			if(!found) {
+				callback("Event not found");
+			}
+		});
+	});
+}

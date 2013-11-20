@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="../../javascripts/application.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/application.css">
 	</head>
 	<body>
-		<h1>Hi</h1>
+		<% include navigation.ejs %>
+		<div id="mainContent">
+			<h1>Event</h1>
+			<%= JSON.stringify(obj) %>
+		</div>
 	</body>
 </html>

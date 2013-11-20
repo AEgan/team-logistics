@@ -21,8 +21,23 @@
 					<td>
 						<!-- Saying this for now until I have team-user relationships set up -->
 						<b>There are no people currently on this team</b><br>
-						<b>There are no events currently planned for this team</b> <br>
-						<a href=<%= "/teams/"+team.name+"/newEvent"%>>Testtesttest</a>
+						<% if(team.events.length === 0) { %>
+							<b>There are no events currently planned for this team</b> <br>
+						<% } else { %>
+							<table class="stripedHoveredTable">
+								<thead>
+									<th>Event Name</th>
+								</thead>
+								<tbody>
+									<% for(var i = 0; i < team.events.length; i++) { %>
+									<tr>
+										<td><a href=<%= "/teams/" + team.name + "/" + team.events[i].name %>><%= team.events[i].name %></a></td>
+									</tr>
+									<% } %>
+								</tbody>
+							</table>
+						<% } %>
+						<a class="newObjButton" href=<%= "/teams/"+team.name+"/newEvent"%>>Create New Event</a>
 					</td>
 				</tr>
 			</table>
