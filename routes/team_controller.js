@@ -67,7 +67,8 @@ exports.postNewEvent = function(req, res) {
 	var longitude = req.body.longitude;
 	var latitude = req.body.latitude;
 	var teamName = req.body.teamName;
-	teams.addEvent(name, street, city, state, zip, longitude, latitude, teamName, function(response) {
+	var datetime = req.body.datetime;
+	teams.addEvent(name, street, city, state, zip, longitude, latitude, teamName, datetime, function(response) {
 		res.render('eventShow');
 	});
 }

@@ -138,12 +138,12 @@ exports.deactivate = function(name) {
 /*
  * Add an event to a team
  */
-exports.addEvent = function(name, street, city, state, zip, longitude, latitude, team_name, callback) {
+exports.addEvent = function(name, street, city, state, zip, longitude, latitude, team_name, datetime, callback) {
 	mongoClient.connect(server+database, function(err, db) {
 		if(err) {
 			doError(err);
 		}
-		db.collection(collection).update({name: team_name}, {'$push': {"events": {'name': name, 'street': street, 'city':city, 'state': state, 'zip':zip, 'longitude': longitude, 'latitude':latitude}}}, {new:true}, function(err, docs) {
+		db.collection(collection).update({name: team_name}, {'$push': {"events": {'name': name, 'street': street, 'city':city, 'state': state, 'zip':zip, 'longitude': longitude, 'latitude':latitude, 'date': new Date(datetime)}}}, {new:true}, function(err, docs) {
 			if(err) {
 				doError(err);
 			}
