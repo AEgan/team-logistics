@@ -3,6 +3,7 @@ var helpers = require('express-helpers');
 var routes = require('./routes');
 var users = require('./routes/users');
 var teams = require('./routes/team_controller');
+var team_members = require('./routes/team_member_controller');
 var app = express();
 
 app.configure(function() {
@@ -28,6 +29,8 @@ app.get('/teams/:name', teams.show);
 app.get('/teams/:name/newEvent', teams.newEventPage);
 app.post('/teams/:name/newEvent', teams.postNewEvent);
 app.get('/teams/:name/:event', teams.showEvent);
+app.get('/newTeamMember', team_members.newMember);
+app.post('/addnewmember', team_members.addMember);
 
 app.listen(12345);
 console.log("======================================");

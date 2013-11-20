@@ -1,5 +1,5 @@
 var teams = require('../models/team.js');
-
+var team_members = require('../models/team_member.js');
 /*
  * Lists all of the team objects in the database
  */
@@ -41,7 +41,9 @@ exports.insert = function(req, res) {
 exports.show = function(req, res) {
 	var username = req.params.name;
 	teams.show(username, function(model) {
-		res.render('teamPage', {team: model});
+		var members = team_members.for_team(model._id, function(docs) {
+			res.render('teamPage', {'team': model, 'members': members});
+		});
 	});
 }
 

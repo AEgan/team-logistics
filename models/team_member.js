@@ -18,7 +18,7 @@ var doError = function(error) {
 /*
  * Insert a new team member
  */
-exports.insert = function(teamID, userID, startDate), callback {
+exports.insert = function(teamID, userID, startDate, callback) {
 	mongoClient.connect(server+database, function(err, db) { 
 		if(err) {
 			doError(err);
@@ -49,7 +49,8 @@ exports.for_user = function(userID, callback) {
  */
 exports.for_team = function(teamID, callback) {
 	mongoClient.connect(server+database, function(err, db) {
-		var crsr = db.collection(collection).find({"teamID": new mongodb.ObjectID.createFromHexString(teamID)});
+		console.log(teamID);
+		var crsr = db.collection(collection).find({"teamID": new mongodb.ObjectID.createFromHexString("" + teamID)});
 		crsr.toArray(function(err, docs) {
 			if(err) {
 				doError(err);

@@ -20,7 +20,9 @@
 					</td>
 					<td>
 						<!-- Saying this for now until I have team-user relationships set up -->
+						<%= JSON.stringify(members) %>
 						<b>There are no people currently on this team</b><br>
+						<a href="newMember">Add member</a>
 						<% if(team.events.length === 0) { %>
 							<b>There are no events currently planned for this team</b> <br>
 						<% } else { %>
