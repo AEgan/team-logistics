@@ -1,6 +1,7 @@
 var teams = require('../models/team.js');
 var team_members = require('../models/team_member.js');
 var async = require("async");
+var users = require('../models/user.js');
 /*
  * Lists all of the team objects in the database
  */
@@ -41,16 +42,18 @@ exports.insert = function(req, res) {
   */
 exports.show = function(req, res) {
 	var username = req.params.name;
+	var returnedUsers = [];
 	teams.show(username, function(model) {
 		team_members.for_team(model._id, function(docs) {
-			console.log("docs are " + JSON.stringify(docs));
 			async.forEach(docs, function(item, callback) {
-				console.log(item);
-				callback();
+				
+				users.find_by_id(item.userID, function(item) {
+					returnedUsers.push(item);
+					callback();
+				});
 			}, function(err) {
-				console.log("iterating done");
+			res.render('teamPage', {'team': model, 'members': returnedUsers});
 			});
-			res.render('teamPage', {'team': model, 'members': docs});
 		});
 	});
 }

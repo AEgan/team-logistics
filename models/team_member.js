@@ -49,7 +49,6 @@ exports.for_user = function(userID, callback) {
  * get all of the team members for a given team
  */
 exports.for_team = function(teamID, callback) {
-	console.log("the team ID is " + teamID);
 	mongoClient.connect(server+database, function(err, db) {
 		if(err) {
 			doError(err);
@@ -59,7 +58,6 @@ exports.for_team = function(teamID, callback) {
 			if(err) {
 				doError(err);
 			}
-			console.log("docs are " + docs + " in the for_team function");
 			callback(docs);
 		});
 	});
