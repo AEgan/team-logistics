@@ -6,6 +6,7 @@
     </script>
     <script type="text/javascript" src="../javascripts/application.js"></script>
     <link rel="stylesheet" type="text/css" href="../stylesheets/application.css">
+    <title><%= team.name + " " + team.sport %></title>
 	</head>
 	<body>
 		<% include navigation.ejs %>
@@ -21,7 +22,23 @@
 					<td>
 						<!-- Saying this for now until I have team-user relationships set up -->
 						<%= JSON.stringify(members) %>
-						<b>There are no people currently on this team</b><br>
+						<% if(members.length === 0 ) {%>
+							<b>There are no people currently on this team</b><br>
+						<% } else { %>
+							<table class="stripedHoveredTable">
+								<thead>
+									<th>Player Name<th>
+								</thead>
+								<tbody>
+									<% for(var i = 0; i < members.length; i++) { %>
+										<tr>
+											<td><%= members[i].username %></td>
+											<td><a href=<%= '/users/'+members[i].username %>>Details</a></td>
+										</tr>
+									<% } %>
+								</tbody>
+							</table>
+						<% } %>
 						<a href="newMember">Add member</a>
 						<% if(team.events.length === 0) { %>
 							<b>There are no events currently planned for this team</b> <br>
