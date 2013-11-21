@@ -49,8 +49,7 @@ exports.for_user = function(userID, callback) {
  */
 exports.for_team = function(teamID, callback) {
 	mongoClient.connect(server+database, function(err, db) {
-		console.log(teamID);
-		var crsr = db.collection(collection).find({"teamID": new mongodb.ObjectID.createFromHexString("" + teamID)});
+		var crsr = db.collection(collection).find();
 		crsr.toArray(function(err, docs) {
 			if(err) {
 				doError(err);

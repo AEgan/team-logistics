@@ -41,8 +41,8 @@ exports.insert = function(req, res) {
 exports.show = function(req, res) {
 	var username = req.params.name;
 	teams.show(username, function(model) {
-		var members = team_members.for_team(model._id, function(docs) {
-			res.render('teamPage', {'team': model, 'members': members});
+		team_members.for_team(model._id, function(docs) {
+			res.render('teamPage', {'team': model, 'members': docs});
 		});
 	});
 }
