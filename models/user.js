@@ -9,6 +9,7 @@ var mongoClient = require("mongodb").MongoClient;
 var server = "mongodb://localhost:27017/";
 var collection = "users";
 var database = "logistics";
+var mongodb = require("mongodb");
 
 /*
  * Simple Error Handling function
@@ -47,6 +48,21 @@ exports.find = function(query, callback) {
 			}
 			callback(docs);
 		});
+	});
+}
+
+/*
+ * gets a user by its ID
+ */
+exports.find_by_id = function(id, callback) {
+	mongoClient.connect(server+database, function(err, db) {
+		if(err) {
+			doError(err);
+		}
+		var crsr = db.collection(collection).find({"_id": mongodb.ObjectID(id)});
+		crsr.toArray(function(err, docs) {
+			callback(docs[0]);
+		})
 	});
 }
 

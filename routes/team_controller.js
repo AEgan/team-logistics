@@ -1,5 +1,6 @@
 var teams = require('../models/team.js');
 var team_members = require('../models/team_member.js');
+var async = require("async");
 /*
  * Lists all of the team objects in the database
  */
@@ -42,6 +43,13 @@ exports.show = function(req, res) {
 	var username = req.params.name;
 	teams.show(username, function(model) {
 		team_members.for_team(model._id, function(docs) {
+			console.log("docs are " + JSON.stringify(docs));
+			async.forEach(docs, function(item, callback) {
+				console.log(item);
+				callback();
+			}, function(err) {
+				console.log("iterating done");
+			});
 			res.render('teamPage', {'team': model, 'members': docs});
 		});
 	});
