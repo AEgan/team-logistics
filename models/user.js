@@ -10,6 +10,7 @@ var server = "mongodb://localhost:27017/";
 var collection = "users";
 var database = "logistics";
 var mongodb = require("mongodb");
+var gm = require('googlemaps');
 
 /*
  * Simple Error Handling function
@@ -27,8 +28,12 @@ exports.insert = function(username, password, active, street, city, state, zip, 
 		if(err) {
 			doError(err);
 		}
-		db.collection(collection).insert({"username": username, "password": password, "active": active, "street": street, "city": city, "state": state, "zip": zip, "role": role}, {safe:true}, function(err, crsr) {
-			callback(crsr);
+		gm.geocode(street + " " + city + " " + state + " " + zip, function(err, result) {
+			var lng = result.results[0].geometry.bounds.northeast.lng;
+			var lat = result.results[0].geometry.bounds.northeast.lat;
+			db.collection(collection).insert({"username": username, "password": password, "active": active, "street": street, "city": city, "state": state, "zip": zip, "role": role, "latitude": lat, "longitude": lng}, {safe:true}, function(err, crsr) {
+				callback(crsr);
+			});
 		});
 	});
 }

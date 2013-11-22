@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Made it</title>
+		<script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="javascripts/application.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/application.css">
+	</head>
+	<body>
+		<% include navigation.ejs %>
+		<div id="mainContent">
+			<p>Hi</p>
+			<form id="createUserForm" action="/insertUser" method="post">
+				Username <input type="text" name="username"><br>
+				Password <input type="password" name="password"><br>
+				Password Confirmation <input type="password" name="passwordconfirmation"><br>
+				Active <input type="checkbox" name="active"><br>
+				Role <input type="text" name="role"><br>
+				Street <input type="text" name="street"><br>
+				City <input type="text" name="city"><br>
+				State <input type="text" name="state"><br>
+				Zip <input type="text" name="zip"><br>
+				<input type="submit" value="Sign Up!">
+			</form>
+		</div>
+	</body>
+</html>

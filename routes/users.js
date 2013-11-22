@@ -1,6 +1,16 @@
 var users = require('../models/user.js');
 var util = require('util');
 var gm = require('googlemaps');
+
+
+/*
+ * The page to sign a new user up
+ */
+
+exports.create = function(req, res) {
+	res.render('signup');
+}
+
 /*
  * Insert a new user
  */
@@ -8,6 +18,11 @@ exports.insert = function(req, res) {
 	var username = req.body.username;
 	var password = req.body.password;
 	var password_confirmation = req.body.passwordconfirmation;
+	var street = req.body.street;
+	var city = req.body.city;
+	var state = req.body.state;
+	var zip = req.body.zip;
+	var role = req.body.role;
 	if(password !== password_confirmation) {
 		res.render('userPage', {title:"Password fields did not match", obj:""});
 	}
@@ -18,7 +33,7 @@ exports.insert = function(req, res) {
 	else {
 		active = false;
 	}
-	users.insert(username, password, active, function(model) {
+	users.insert(username, password, active, street, city, state, zip, role, function(model) {
 		res.render('userPage', {title:"Inserted the following object", obj:model});
 	});
 }
