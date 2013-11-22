@@ -8,6 +8,7 @@
 		"express": "3.0.0",
     "ejs": "*",
     "mongodb": "*",
-    "async": "*"
+    "async": "*",
+    "googlemaps": "*"
 	}
 }
