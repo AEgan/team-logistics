@@ -77,11 +77,9 @@ exports.postNewEvent = function(req, res) {
 	var city = req.body.city;
 	var state = req.body.state;
 	var zip = req.body.zip;
-	var longitude = req.body.longitude;
-	var latitude = req.body.latitude;
 	var teamName = req.body.teamName;
 	var datetime = req.body.datetime;
-	teams.addEvent(name, street, city, state, zip, longitude, latitude, teamName, datetime, function(response) {
+	teams.addEvent(name, street, city, state, zip, teamName, datetime, function(response) {
 		res.render('eventShow');
 	});
 }

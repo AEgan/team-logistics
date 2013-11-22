@@ -13,6 +13,7 @@ var mongoClient = require("mongodb").MongoClient;
 var server = "mongodb://localhost:27017/";
 var collection = "teams";
 var database = "logistics";
+var gm = require('googlemaps');
 
 /*
  * Simple Error Handling function
@@ -138,16 +139,23 @@ exports.deactivate = function(name) {
 /*
  * Add an event to a team
  */
-exports.addEvent = function(name, street, city, state, zip, longitude, latitude, team_name, datetime, callback) {
+exports.addEvent = function(name, street, city, state, zip, team_name, datetime, callback) {
 	mongoClient.connect(server+database, function(err, db) {
 		if(err) {
 			doError(err);
 		}
-		db.collection(collection).update({name: team_name}, {'$push': {"events": {'name': name, 'street': street, 'city':city, 'state': state, 'zip':zip, 'longitude': longitude, 'latitude':latitude, 'date': new Date(datetime)}}}, {new:true}, function(err, docs) {
+		gm.geocode("" + street + " " + city + " " + state + " " + zip, function(err, result) {
 			if(err) {
 				doError(err);
 			}
-			callback("Event added");
+			var lng = result.results[0].geometry.bounds.northeast.lng;
+			var lat = result.results[0].geometry.bounds.northeast.lat;
+			db.collection(collection).update({name: team_name}, {'$push': {"events": {'name': name, 'street': street, 'city':city, 'state': state, 'zip':zip, 'longitude': lng, 'latitude':lat, 'date': new Date(datetime)}}}, {new:true}, function(err, docs) {
+				if(err) {
+					doError(err);
+				}
+				callback("Event added");
+			});
 		});
 	});
 }
