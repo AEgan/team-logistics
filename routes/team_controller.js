@@ -2,6 +2,7 @@ var teams = require('../models/team.js');
 var team_members = require('../models/team_member.js');
 var async = require("async");
 var users = require('../models/user.js');
+var gm = require('googlemaps');
 /*
  * Lists all of the team objects in the database
  */
@@ -87,7 +88,21 @@ exports.postNewEvent = function(req, res) {
 exports.showEvent = function(req, res) {
 	var eventName = req.params.event;
 	var teamName = req.params.name;
-	teams.showEvent(teamName, eventName, function(model) {
-		res.render('eventShow', {obj: model});
+	teams.showEvent(teamName, eventName, function(team, theEvent) {
+		var address = "" + theEvent.street + " " + theEvent.city + " " + theEvent.state + " " + theEvent.zip;
+		var markers = [
+			{'location': address,
+			'color': 'red',
+			'shadow': false,
+			'icon': "http://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=cafe%7C996600"
+			 }
+		];
+		var styles = [
+    	{ 'feature': 'road', 'element': 'all', 'rules': 
+      	  { 'hue': '0x00ff00' }
+    	}
+		];
+		var mapStr = gm.staticMap(address, 15, '500x400', false, false, 'roadmap', markers, styles);
+		res.render('eventShow', {team: team, theEvent: theEvent, map: mapStr});
 	});
 }

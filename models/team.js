@@ -192,7 +192,7 @@ exports.showEvent = function(teamName, eventName, callback) {
 			for(var i = 0; i < events.length; i++) {
 				if(events[i]["name"] === eventName) {
 					found = true;
-					callback(events[i]);
+					callback(docs[0], events[i]);
 				}
 			}
 			if(!found) {

@@ -6,12 +6,21 @@
     </script>
     <script type="text/javascript" src="../../javascripts/application.js"></script>
     <link rel="stylesheet" type="text/css" href="../../stylesheets/application.css">
+    <title><%= theEvent.name + " for " + team.name %></title>
 	</head>
 	<body>
 		<% include navigation.ejs %>
 		<div id="mainContent">
-			<h1>Event</h1>
-			<%= JSON.stringify(obj) %>
+			<h1><%= theEvent.name %></h1>
+			<p><b><%= theEvent.name + " for " + team.name + " " + team.sport %></b><br/>
+				Location: <%= theEvent.street + " " + theEvent.city + " " + theEvent.state + " " + theEvent.zip %><br />
+				Start Time: <%= theEvent.dateTime %>
+			</p>
+			<p>
+				<img src=<%= map %> alt="map">
+			</p>
+			<%= JSON.stringify(team) %>
+			<%= JSON.stringify(theEvent) %>
 		</div>
 	</body>
 </html>
