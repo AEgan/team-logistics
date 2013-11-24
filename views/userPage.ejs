@@ -24,7 +24,26 @@
           </td>
           <td>
             <%= JSON.stringify(teams) %>
-            <b>This user is not currently a member of any teams</b>
+            <% if(teams.length === 0) { %>
+              <b>This user is not currently a member of any teams</b>
+            <% } else { %>
+              <table class="stripedHoveredTable">
+                <thead>
+                  <th>Team</th>
+                  <th>Sport</th>
+                  <th>Coach</th>
+                </thead>
+                <tbody>
+                  <% for(var i = 0; i < teams.length; i++) { %>
+                    <tr>
+                      <td><a href=<%= '/teams/'+teams[i].name %>><%= teams[i].name %></a></td>
+                      <td><%= teams[i].sport %></td>
+                      <td><%= teams[i].coach %></td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            <% } %>
           </td>
           <tr>
             <td><%= JSON.stringify(obj) %></td>
