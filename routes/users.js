@@ -1,7 +1,9 @@
 var users = require('../models/user.js');
 var util = require('util');
 var gm = require('googlemaps');
-
+var team_members = require('../models/team_member.js');
+var teams = require('../models/team.js');
+var async = require("async");
 
 /*
  * The page to sign a new user up
@@ -73,6 +75,7 @@ exports.destroy = function(req, res) {
 }
 
 exports.show = function(req, res) {
+	var returnedTeams = [];
 	users.show(req.params.username, function(model) {
 		var address = "" + model.street + " " + model.city + " " + model.state;
 		var markers = [
@@ -88,6 +91,18 @@ exports.show = function(req, res) {
     	}
 		];
 		var mapStr = gm.staticMap(address, 15, '500x400', false, false, 'roadmap', markers, styles);
-		res.render('userPage', {title: "title test", header: "hi", obj: model, map: mapStr});
+		team_members.for_user(model._id, function(docs) {
+			async.forEach(docs, function(item, callback){
+				teams.find_by_id(item.teamID, function(found){
+					returnedTeams.push(found);
+					callback();
+				})
+			}, function(err){
+				if(err) {
+					doError(err);
+				}
+				res.render('userPage', {title: "title test", header: "hi", obj: model, map: mapStr, teams: returnedTeams});
+			});
+		});
 	});
 }

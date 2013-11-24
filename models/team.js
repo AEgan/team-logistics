@@ -14,6 +14,7 @@ var server = "mongodb://localhost:27017/";
 var collection = "teams";
 var database = "logistics";
 var gm = require('googlemaps');
+var mongodb = require("mongodb");
 
 /*
  * Simple Error Handling function
@@ -66,6 +67,24 @@ exports.find = function(name, callback) {
 				doError(err);
 			}
 			callback(docs);
+		});
+	});
+}
+
+/*
+ * gets a team by its ID
+ */
+exports.find_by_id = function(teamID, callback) {
+	mongoClient.connect(server+database, function(err, db) {
+		if(err) {
+			doError(err);
+		}
+		var crsr = db.collection(collection).find({"_id": mongodb.ObjectID(teamID)});
+		crsr.toArray(function(err, docs){
+			if(err) {
+				doError(err);
+			}
+			callback(docs[0]);
 		});
 	});
 }
