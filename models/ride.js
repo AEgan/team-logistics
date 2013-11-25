@@ -36,7 +36,7 @@ exports.insert = function(teamID, eventName, driverID, departureTime, spots, cal
 /*
  * Gets rides associated with an event and a team's ID
  */
-exports.find_by_event = function(teamID, eventName, callback) {
+exports.for_event = function(teamID, eventName, callback) {
 	mongoClient.connect(server+database, function(err, db) {
 		if(err) {
 			doError(err);

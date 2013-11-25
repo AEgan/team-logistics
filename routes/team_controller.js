@@ -3,6 +3,7 @@ var team_members = require('../models/team_member.js');
 var async = require("async");
 var users = require('../models/user.js');
 var gm = require('googlemaps');
+var rides = require('../models/ride.js');
 /*
  * Lists all of the team objects in the database
  */
@@ -103,6 +104,8 @@ exports.showEvent = function(req, res) {
     	}
 		];
 		var mapStr = gm.staticMap(address, 15, '500x400', false, false, 'roadmap', markers, styles);
-		res.render('eventShow', {team: team, theEvent: theEvent, map: mapStr});
+		rides.for_event(team._id, eventName, function(rides_for_event) {
+			res.render('eventShow', {team: team, theEvent: theEvent, map: mapStr, rides: rides_for_event});
+		});
 	});
 }
