@@ -19,6 +19,22 @@
 			<p>
 				<img src=<%= map %> alt="map">
 			</p>
+			<table class="stripedHoveredTable">
+				<thead>
+					<th>Driver</th>
+					<th>Departing</th>
+					<th>Spots available</th>
+				</thead>
+				<tbody>
+					<% for(var i = 0; i < rides.length; i++) { %>
+						<tr>
+							<td><%= drivers[i].username %></td>
+							<td><%= rides[i].departureTime %></td>
+							<td><%= rides[i].spots - rides[i].riders.length %></td>
+						</tr>
+					<% } %>
+				</tbody>
+			</table>
 			<%= JSON.stringify(team) %>
 			<%= JSON.stringify(theEvent) %>
 			<%= JSON.stringify(rides) %>
