@@ -104,8 +104,16 @@ exports.showEvent = function(req, res) {
     	}
 		];
 		var mapStr = gm.staticMap(address, 15, '500x400', false, false, 'roadmap', markers, styles);
+		var drivers = [];
 		rides.for_event(team._id, eventName, function(rides_for_event) {
-			res.render('eventShow', {team: team, theEvent: theEvent, map: mapStr, rides: rides_for_event});
+			async.forEach(rides_for_event, function(item, callback) {
+				users.find_by_id(item.driverID, function(doc) {
+					drivers.push(doc);
+					callback();
+				});
+			}, function(err){
+				res.render('eventShow', {team: team, theEvent: theEvent, map: mapStr, rides: rides_for_event, drivers: drivers});
+			});
 		});
 	});
 }
