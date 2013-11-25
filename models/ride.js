@@ -28,7 +28,7 @@ exports.insert = function(teamID, eventName, driverID, departureTime, spots, cal
 			doError(err);
 		}
 		db.collection(collection).insert({"eventName": eventName, "teamID": teamID, "driverID": driverID, "departureTime": departureTime, "spots": spots, "riders": []}, {safe: true}, function(err, crsr) {
-			callback(crsr[0]);
+			callback(crsr);
 		});
 	});
 }

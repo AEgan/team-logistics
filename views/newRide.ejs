@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>New Ride</title>
+		<script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="../../../javascripts/application.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../stylesheets/application.css">
+	</head>
+	<body>
+		<% include navigation.ejs %>
+		<div id="mainContent">
+			<h1>New Ride</h1>
+			<p><%= teamName %></p>
+			<p><%= eventName %></p>
+			<form id="newRideForm" action=<%='/teams/'+teamName+'/'+eventName+'/newRide'%> method='post'>
+				Driver ID <input type="text" name="driverID"><br />
+				Departure Time <input type="datetime-local" name="time"><br />
+				Number of spots <input type="number" name="spots"><br />
+				<input type="submit" value="Create">
+			</form>
+		</div>
+	</body>
+</html>
