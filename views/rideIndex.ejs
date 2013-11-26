@@ -11,7 +11,28 @@
 	<body>
 		<% include navigation.ejs %>
 		<div id="mainContent">
-			<p>Hey we're here</p>
+			<h1><%= "Rides for " + team.name + " " + team.sport + " " + eventName %></h1>
+			<% if(rides.length === 0) { %>
+			<b>There are no rides available</b>
+			<% } else { %>
+			<table class="stripedHoveredTable">
+				<thead>
+					<th>Driver</th>
+					<th>Departure Time</th>
+					<th>Spots Available</th>
+				</thead>
+				<tbody>
+					<% for(var i = 0; i < rides.length; i++) { %>
+					<tr>
+						<td><%= usernames[i]%></td>
+						<td><%= rides[i].departureTime%></td>
+						<td><%= rides[i].spots - rides[i].riders.length %></td>
+					</tr>
+					<% } %>
+				</tbody>
+			</table>
+			<% } %>
+			<%= JSON.stringify(rides) %>
 		</div>
 	</body>
 </html>

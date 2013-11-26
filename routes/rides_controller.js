@@ -5,7 +5,20 @@ var rides = require('../models/ride.js');
 var gm = require('googlemaps');
 
 exports.index = function(req, res) {
-	res.render('rideIndex');
+	teams.find(req.params.name, function(docs) {
+		var teamID = docs[0]._id;
+		var usernames = [];
+		rides.for_event(teamID, req.params.event, function(rideDocs) {
+			async.forEach(rideDocs, function(item, callback){
+				users.find_by_id(item.driverID, function(model) {
+					usernames.push(model.username);
+					callback();
+				});
+			}, function(err){
+				res.render('rideIndex', {rides: rideDocs, eventName: req.params.event, team: docs[0], 'usernames': usernames});
+			});
+		});
+	});
 }
 
 exports.create = function(req, res) {
