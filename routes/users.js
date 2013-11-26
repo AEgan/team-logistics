@@ -118,3 +118,13 @@ exports.auth = function(req, res) {
 		}
 	});
 }
+
+exports.logout = function(req, res) {
+	if(req.session && req.session.user) {
+		delete req.session.user;
+		res.render('index', {title: "Logged Out", current_user: undefined});
+	}
+	else {
+		res.render('index', {title: "You were never logged in...", current_user: undefined})
+	}
+}

@@ -8,18 +8,6 @@ var team_members = require('./routes/team_member_controller');
 var rides = require('./routes/rides_controller');
 var app = express();
 
-// app.configure(function() {
-// 	app.set('views', __dirname + '/views');
-// 	app.set('view engine', 'ejs');
-// 	app.use(express.bodyParser());
-// 	app.use(express.methodOverride());
-// 	app.use(app.router);
-// 	app.use(express.cookieParser('1234567890QWERTY'));
-// 	app.use(express.cookieSession());
-// 	app.use(express.static(__dirname + '/public'));
-// 	app.use(express.errorHandler({ dumpExceptions: true, showStack: true}));
-// });
-
 app.use(express.cookieParser());
 app.use(express.session({secret: '1234567890QWERTY'}));
 app.set('views', __dirname + '/views');
@@ -52,11 +40,7 @@ app.get('/teams/:name/:event/newRide', rides.create);
 app.post('/teams/:name/:event/newRide', rides.insert);
 app.get('/login', routesIndex.login);
 app.post('/login', users.auth);
-
-app.get('/testtesttest', function(req, res) {
-	console.log(req.session);
-	res.send("here");
-})
+app.get('/logout', users.logout);
 
 app.listen(12345);
 console.log("======================================");
