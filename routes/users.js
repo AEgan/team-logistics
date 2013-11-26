@@ -106,3 +106,15 @@ exports.show = function(req, res) {
 		});
 	});
 }
+
+exports.auth = function(req, res) {
+	users.auth(req.body.username, req.body.password, function(docs) {
+		if(docs[0]) {
+			req.session.user = docs[0];
+			res.render('index', {title: "Logged In", current_user: req.session.user });
+		}
+		else {
+			res.render('login');
+		}
+	});
+}

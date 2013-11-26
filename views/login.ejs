@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Team Logistics</title>
+		<title>Login</title>
 		<script
       src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
     </script>
@@ -10,15 +10,13 @@
 	</head>
 	<body>
 		<% include navigation.ejs %>
-		<h1>Welcome to Team Logistics!</h1>
-		<ul>
-			<li>link to teams</li>
-			<%= title %>
-			<% if(current_user) { %>
-			<%= JSON.stringify(current_user)%>
-			<% } else { %>
-			<p>Not logged in</p>
-			<% } %>
-		</ul>
+		<div id="mainContent">
+			<h1>Log In</h1>
+			<form action="/login" method="post">
+				Username <input type="text" name="username"><br />
+				Password <input type="password" name="password"><br />
+				<input type="submit" value="Log In">
+			</form>
+		</div>
 	</body>
 </html>

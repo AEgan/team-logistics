@@ -153,3 +153,18 @@ exports.activate = function(username) {
 		});
 	});
 }
+
+exports.auth = function(username, password, callback) {
+	mongoClient.connect(server+database, function(err, db) {
+		if(err) {
+			doError(err);
+		}
+		var crsr = db.collection(collection).find({"username": username, "password": password});
+		crsr.toArray(function(err, docs) {
+			if(err) {
+				doError(err);
+			}
+			callback(docs);
+		});
+	})
+}
