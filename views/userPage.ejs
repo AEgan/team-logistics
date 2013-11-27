@@ -11,7 +11,11 @@
     <link rel="stylesheet" type="text/css" href="../stylesheets/application.css">
   </head>
   <body>
-  	<% include navigation.ejs %>
+  	<% if(current_user) { %>
+    <% include loggedInNavigation.ejs %>
+    <% } else { %>
+    <% include navigation.ejs %>
+    <% } %>
   	<div id="mainContent">
   		<h1><%= obj.username %></h1>
       <table id="profileTable">

@@ -9,7 +9,11 @@
     <title><%= team.name + " " + team.sport %></title>
 	</head>
 	<body>
+		<% if(current_user) { %>
+		<% include loggedInNavigation.ejs %>
+		<% } else { %>
 		<% include navigation.ejs %>
+		<% } %>
 		<div id="mainContent">
 			<h1><%= team.name + " " + team.sport %></h1>
 			<table id="profileTable">
@@ -39,7 +43,7 @@
 								</tbody>
 							</table>
 						<% } %>
-						<a href="newMember">Add member</a>
+						<a class="newObjButton" href='/newTeamMember'>Add Member</a>
 						<% if(team.events.length === 0) { %>
 							<b>There are no events currently planned for this team</b> <br>
 						<% } else { %>

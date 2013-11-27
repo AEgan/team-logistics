@@ -8,8 +8,12 @@ var rides = require('../models/ride.js');
  * Lists all of the team objects in the database
  */
 exports.index = function(req, res) {
+	var theUser = undefined;
+	if(req.session && req.session.user) {
+		theUser = req.session.user;
+	}
 	teams.list(function(models){
-		res.render('teamIndex', {title:"Listing Teams", teams: models});
+		res.render('teamIndex', {title:"Listing Teams", teams: models, 'current_user': theUser});
 	});
 }
 
@@ -17,7 +21,11 @@ exports.index = function(req, res) {
   * renders a page to create a new team
   */
 exports.newTeam = function(req, res) {
-	res.render('newTeam');
+	var theUser = undefined;
+	if(req.session && req.session.user) {
+		theUser = req.session.user;
+	}
+	res.render('newTeam', {current_user: theUser});
 }
 
  /*
@@ -43,6 +51,10 @@ exports.insert = function(req, res) {
   * shows a team
   */
 exports.show = function(req, res) {
+	var theUser = undefined;
+	if(req.session && req.session.user) {
+		theUser = req.session.user;
+	}
 	var username = req.params.name;
 	var returnedUsers = [];
 	teams.show(username, function(model) {
@@ -54,7 +66,7 @@ exports.show = function(req, res) {
 					callback();
 				});
 			}, function(err) {
-			res.render('teamPage', {'team': model, 'members': returnedUsers});
+			res.render('teamPage', {'team': model, 'members': returnedUsers, 'current_user': theUser});
 			});
 		});
 	});
@@ -65,8 +77,12 @@ exports.show = function(req, res) {
  */
 exports.newEventPage = function(req, res) {
 	var name = req.params.name;
+	var theUser = undefined;
+	if(req.session && req.session.user) {
+		theUser = req.session.user;
+	}
 	teams.find(name, function(model) {
-		res.render('newEvent', {"team": model[0]});
+		res.render('newEvent', {"team": model[0], "current_user": theUser});
 	});
 }
 

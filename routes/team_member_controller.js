@@ -4,7 +4,11 @@ var teams = require('../models/team.js');
  * Renders page to add a new member
  */
 exports.newMember = function(req, res) {
-	res.render('newMember');
+	var theUser = undefined;
+	if(req.session && req.session.user) {
+		theUser = req.session.user;
+	}
+	res.render('newMember', {"current_user": theUser});
 }
 
 exports.addMember = function(req, res) {

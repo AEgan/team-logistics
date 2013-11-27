@@ -5,6 +5,10 @@ var rides = require('../models/ride.js');
 var gm = require('googlemaps');
 
 exports.index = function(req, res) {
+	var theUser = undefined;
+	if(req.session && req.session.user) {
+		theUser = req.session.user;
+	}
 	teams.find(req.params.name, function(docs) {
 		var teamID = docs[0]._id;
 		var usernames = [];
@@ -15,14 +19,18 @@ exports.index = function(req, res) {
 					callback();
 				});
 			}, function(err){
-				res.render('rideIndex', {rides: rideDocs, eventName: req.params.event, team: docs[0], 'usernames': usernames});
+				res.render('rideIndex', {rides: rideDocs, eventName: req.params.event, team: docs[0], 'usernames': usernames, 'current_user': theUser});
 			});
 		});
 	});
 }
 
 exports.create = function(req, res) {
-	res.render('newRide', {'teamName': req.params.name, 'eventName': req.params.event});
+	var theUser = undefined;
+	if(req.session && req.session.user) {
+		theUser = req.session.user;
+	}
+	res.render('newRide', {'teamName': req.params.name, 'eventName': req.params.event, 'current_user': theUser});
 }
 
 exports.insert = function(req, res) {

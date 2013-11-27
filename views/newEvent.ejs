@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>New Event</title>
 		<script
       src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
     </script>
@@ -8,7 +9,11 @@
     <link rel="stylesheet" type="text/css" href="../../stylesheets/application.css">
 	</head>
 	<body>
+		<% if(current_user) { %>
+		<% include loggedInNavigation.ejs %>
+		<% } else { %>
 		<% include navigation.ejs %>
+		<% } %>
 		<div id="mainContent">
 			<h1>Creating a new Event</h1>
 			<form id="newEventForm" method="post" action=<%= '/teams/'+team.name+'/newEvent'%>>

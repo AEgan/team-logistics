@@ -9,7 +9,11 @@
     <link rel="stylesheet" type="text/css" href="../../../stylesheets/application.css">
 	</head>
 	<body>
+		<% if(current_user) { %>
+		<% include loggedInNavigation.ejs %>
+		<% } else { %>
 		<% include navigation.ejs %>
+		<% } %>
 		<div id="mainContent">
 			<h1>New Ride</h1>
 			<p><%= teamName %></p>

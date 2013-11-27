@@ -75,6 +75,10 @@ exports.destroy = function(req, res) {
 }
 
 exports.show = function(req, res) {
+	var theUser = undefined;
+	if(req.session && req.session.user) {
+		theUser = req.session.user;
+	}
 	var returnedTeams = [];
 	users.show(req.params.username, function(model) {
 		var address = "" + model.street + " " + model.city + " " + model.state;
@@ -101,7 +105,7 @@ exports.show = function(req, res) {
 				if(err) {
 					doError(err);
 				}
-				res.render('userPage', {title: "title test", header: "hi", obj: model, map: mapStr, teams: returnedTeams});
+				res.render('userPage', {title: "title test", header: "hi", obj: model, map: mapStr, teams: returnedTeams, 'current_user': theUser});
 			});
 		});
 	});

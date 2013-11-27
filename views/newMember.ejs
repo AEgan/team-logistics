@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>New Team Member</title>
 		<script
       src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
     </script>
@@ -8,11 +9,15 @@
     <link rel="stylesheet" type="text/css" href="../stylesheets/application.css">
 	</head>
 	<body>
+		<% if(current_user) { %>
+		<% include loggedInNavigation.ejs %>
+		<% } else { %>
 		<% include navigation.ejs %>
+		<% } %>
 		<div id="mainContent">
 			<form id="newTeamMember" action="/addnewmember" method="post">
-				TeamID<input name="teamID" type="text">
-				UserID<input name="userID" type="text">
+				TeamID<input name="teamID" type="text"><br />
+				UserID<input name="userID" type="text"><br />
 				<input type="submit" value="submit">
 			</form>
 		</div>
