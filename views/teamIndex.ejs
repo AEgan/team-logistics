@@ -15,6 +15,12 @@
 		<% include navigation.ejs %>
 		<% } %>
 		<div id="mainContent">
+			<div class="warning">
+		      <p>Warning</p>
+		  </div>
+		  <div class="success">
+		      <p>Success</p>
+		  </div>
 			<h1>Teams</h1>
 			<% if(teams.length === 0) { %>
 				<p>There are no teams to display</p>

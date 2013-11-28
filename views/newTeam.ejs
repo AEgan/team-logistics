@@ -15,6 +15,9 @@
 		<% include navigation.ejs %>
 		<% } %>
 			<div id="mainContent">
+				<div class="warning">
+		      <p>Warning</p>
+		  </div>
 				<h2>Create a new Team</h2>
 				<form id="newTeamForm" action="/teams/insert" method="post">
 					Name <input type="text" id="name" name="name" placeholder="name"><br>

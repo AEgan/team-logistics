@@ -14,15 +14,23 @@
 		<% } else { %>
 		<% include navigation.ejs %>
 		<% } %>
-		<h1>Welcome to Team Logistics!</h1>
-		<ul>
-			<li>link to teams</li>
-			<%= title %>
-			<% if(current_user) { %>
-			<%= JSON.stringify(current_user)%>
-			<% } else { %>
-			<p>Not logged in</p>
-			<% } %>
-		</ul>
+		<div id="mainContent">
+			<div class="warning">
+		      <p>Warning</p>
+		  </div>
+		  <div class="success">
+		      <p>Success</p>
+		  </div>
+			<h1>Welcome to Team Logistics!</h1>
+			<ul>
+				<li>link to teams</li>
+				<%= title %>
+				<% if(current_user) { %>
+				<%= JSON.stringify(current_user)%>
+				<% } else { %>
+				<p>Not logged in</p>
+				<% } %>
+			</ul>
+		</div>
 	</body>
 </html>

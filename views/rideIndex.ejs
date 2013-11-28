@@ -15,6 +15,9 @@
 		<% include navigation.ejs %>
 		<% } %>
 		<div id="mainContent">
+		  <div class="success">
+		      <p>Success</p>
+		  </div>
 			<h1><%= "Rides for " + team.name + " " + team.sport + " " + eventName %></h1>
 			<% if(rides.length === 0) { %>
 			<b>There are no rides available</b>
