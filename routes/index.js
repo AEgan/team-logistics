@@ -3,9 +3,11 @@ exports.index = function(req, res) {
 	if(req.session && req.session.user) {
 		theUser = req.session.user;
 	}
-	res.render('index', {title:'Welcome', current_user: theUser});
+	var successMessage = undefined;
+	var warningMessage = undefined;
+	res.render('index', {title:'Welcome', current_user: theUser, success: successMessage, warning: warningMessage});
 }
 
 exports.login = function(req, res) {
-	res.render('login');
+	res.render('login', {warning: undefined});
 }

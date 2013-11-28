@@ -115,10 +115,10 @@ exports.auth = function(req, res) {
 	users.auth(req.body.username, req.body.password, function(docs) {
 		if(docs[0]) {
 			req.session.user = docs[0];
-			res.render('index', {title: "Logged In", current_user: req.session.user });
+			res.render('index', {title: "Logged In", current_user: req.session.user, warning: undefined, success: "Logged In!" });
 		}
 		else {
-			res.render('login');
+			res.render('login', {warning: "Incorrect username or password"});
 		}
 	});
 }
