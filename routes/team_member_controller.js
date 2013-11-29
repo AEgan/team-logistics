@@ -8,7 +8,12 @@ exports.newMember = function(req, res) {
 	if(req.session && req.session.user) {
 		theUser = req.session.user;
 	}
-	res.render('newMember', {"current_user": theUser});
+	if(theUser) {
+		res.render('newMember', {"current_user": theUser});
+	}
+	else {
+		res.redirect('login', {current_user: theUser, warning: 'You must be logged in to do that!'});
+	}
 }
 
 exports.addMember = function(req, res) {

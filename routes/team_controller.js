@@ -25,7 +25,13 @@ exports.newTeam = function(req, res) {
 	if(req.session && req.session.user) {
 		theUser = req.session.user;
 	}
-	res.render('newTeam', {current_user: theUser});
+	if(theUser) {
+		res.render('newTeam', {current_user: theUser});
+	}
+	else {
+		req.session.warning = "You must log in to do that!"
+		return res.redirect('/login');
+	}
 }
 
  /*

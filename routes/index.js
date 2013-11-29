@@ -9,5 +9,10 @@ exports.index = function(req, res) {
 }
 
 exports.login = function(req, res) {
-	res.render('login', {warning: undefined});
+	var warningMessage = undefined;
+	if(req.session && req.session.warning) {
+		warningMessage = req.session.warning;
+	}
+	delete req.session.warning;
+	res.render('login', {warning: warningMessage});
 }
