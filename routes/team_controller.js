@@ -13,7 +13,7 @@ exports.index = function(req, res) {
 		theUser = req.session.user;
 	}
 	teams.list(function(models){
-		res.render('teamIndex', {title:"Listing Teams", teams: models, 'current_user': theUser});
+		res.render('teamIndex', {title:"Listing Teams", teams: models, 'current_user': theUser, warning: undefined, success: undefined});
 	});
 }
 
