@@ -44,7 +44,8 @@ exports.insert = function(req, res) {
 		active = false;
 	}
 	users.insert(username, password, active, street, city, state, zip, role, function(model) {
-		res.render('userPage', {title:"Inserted the following object", obj:model});
+		req.session.user = model[0];
+		res.render('index', {title:"Inserted the following object", obj:model, current_user: req.session.user, warning: undefined, success: "Welcome to the site!"});
 	});
 }
 
