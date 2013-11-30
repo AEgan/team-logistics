@@ -11,9 +11,11 @@
 	<body>
 		<% include navigation.ejs %>
 		<div id="mainContent">
+			<% if(warning) { %>
 			<div class="warning">
 		      <p>Warning</p>
 		  </div>
+		  <% } %>
 			<h1>Sign Up!</h1>
 			<form id="createUserForm" action="/insertUser" method="post">
 				Username <input type="text" name="username"><br>

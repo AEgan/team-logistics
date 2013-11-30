@@ -18,7 +18,7 @@ exports.create = function(req, res) {
 		req.session.warning = "You are currently logged in and can not create a user";
 		res.redirect('/');
 	}
-	res.render('signup');
+	res.render('signup', {warning: undefined});
 }
 
 /*
