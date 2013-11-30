@@ -10,6 +10,14 @@ var async = require("async");
  */
 
 exports.create = function(req, res) {
+	var theUser = undefined;
+	if(req.session && req.session.user) {
+		theUser = req.session.user;
+	}
+	if(theUser) {
+		req.session.warning = "You are currently logged in and can not create a user";
+		res.redirect('/');
+	}
 	res.render('signup');
 }
 

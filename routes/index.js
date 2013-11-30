@@ -5,6 +5,10 @@ exports.index = function(req, res) {
 	}
 	var successMessage = undefined;
 	var warningMessage = undefined;
+	if(req.session && req.session.warning) {
+		warningMessage = req.session.warning;
+		delete req.session.warning;
+	}
 	res.render('index', {title:'Welcome', current_user: theUser, success: successMessage, warning: warningMessage});
 }
 
