@@ -41,6 +41,7 @@ app.post('/teams/:name/:event/newRide', rides.insert);
 app.get('/login', routesIndex.login);
 app.post('/login', users.auth);
 app.get('/logout', users.logout);
+app.get('/myProfile', users.myProfile);
 
 app.listen(12345);
 console.log("======================================");

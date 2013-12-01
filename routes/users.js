@@ -141,3 +141,14 @@ exports.logout = function(req, res) {
 		res.render('index', {title: "You were never logged in...", current_user: undefined})
 	}
 }
+
+exports.myProfile = function(req, res) {
+	if(req.session && req.session.user) {
+		var theUsername = req.session.user.username;
+		res.redirect('/users/' + theUsername);
+	}
+	else {
+		req.session.warning = "You must be logged in to do that";
+		res.redirect('/');
+	}
+}
