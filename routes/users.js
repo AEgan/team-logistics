@@ -83,6 +83,9 @@ exports.destroy = function(req, res) {
 	});
 }
 
+/*
+ * Profile page logic
+ */
 exports.show = function(req, res) {
 	var theUser = undefined;
 	if(req.session && req.session.user) {
@@ -114,12 +117,25 @@ exports.show = function(req, res) {
 				if(err) {
 					doError(err);
 				}
-				res.render('userPage', {title: "title test", header: "hi", obj: model, map: mapStr, teams: returnedTeams, 'current_user': theUser});
+				var warningMessage = undefined;
+				var successMessage = undefined;
+				if(req.session && req.session.warning) {
+					warningMessage = req.session.warning;
+					delete req.session.warning;
+				}
+				if(req.session && req.session.success) {
+					successMessage = req.session.success;
+					delete req.session.success;
+				}
+				res.render('userPage', {title: "title test", header: "hi", obj: model, map: mapStr, teams: returnedTeams, 'current_user': theUser, 'warning': warningMessage, 'success': successMessage});
 			});
 		});
 	});
 }
 
+/*
+ * Authenticates a user
+ */
 exports.auth = function(req, res) {
 	users.auth(req.body.username, req.body.password, function(docs) {
 		if(docs[0]) {
@@ -132,6 +148,9 @@ exports.auth = function(req, res) {
 	});
 }
 
+/*
+ * Logs a user out
+ */
 exports.logout = function(req, res) {
 	if(req.session && req.session.user) {
 		delete req.session.user;
@@ -142,6 +161,9 @@ exports.logout = function(req, res) {
 	}
 }
 
+/*
+ * Sends a logged in user to their profile, if no logged in user sends them to index
+ */
 exports.myProfile = function(req, res) {
 	if(req.session && req.session.user) {
 		var theUsername = req.session.user.username;
