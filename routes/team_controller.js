@@ -29,7 +29,7 @@ exports.newTeam = function(req, res) {
 		res.render('newTeam', {current_user: theUser});
 	}
 	else {
-		req.session.warning = "You must log in to do that!"
+		req.session.warning = "You must log in to do that!";
 		return res.redirect('/login');
 	}
 }
@@ -61,6 +61,16 @@ exports.show = function(req, res) {
 	if(req.session && req.session.user) {
 		theUser = req.session.user;
 	}
+	var warningMessage = undefined;
+	var successMessage = undefined;
+	if(req.session && req.session.warning) {
+		warningMessage = req.session.warning;
+		delete req.session.warning;
+	}
+	if (req.session && req.session.success) {
+		successMessage = req.session.success;
+		delete req.session.success;
+	}
 	var username = req.params.name;
 	var returnedUsers = [];
 	teams.show(username, function(model) {
@@ -72,7 +82,7 @@ exports.show = function(req, res) {
 					callback();
 				});
 			}, function(err) {
-			res.render('teamPage', {'team': model, 'members': returnedUsers, 'current_user': theUser});
+			res.render('teamPage', {'team': model, 'members': returnedUsers, 'current_user': theUser, 'warning': warningMessage, 'success': successMessage});
 			});
 		});
 	});
@@ -86,6 +96,10 @@ exports.newEventPage = function(req, res) {
 	var theUser = undefined;
 	if(req.session && req.session.user) {
 		theUser = req.session.user;
+	}
+	else {
+		req.session.warning = "You must be logged in to create a new event";
+		return res.redirect('/login');
 	}
 	teams.find(name, function(model) {
 		res.render('newEvent', {"team": model[0], "current_user": theUser});
