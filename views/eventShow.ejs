@@ -7,8 +7,22 @@
     <title><%= theEvent.name + " for " + team.name %></title>
 	</head>
 	<body>
+		<% if(current_user) { %>
+		<% include loggedInNavigation.ejs %>
+		<% } else { %>
 		<% include navigation.ejs %>
+		<% } %>
 		<div id="mainContent">
+			<% if(warning) { %>
+			<div class="warning">
+		      <p><%= warning %></p>
+		  </div>
+		  <% } %>
+		  <% if(success) { %>
+		  <div class="success">
+		      <p><%= success %></p>
+		  </div>
+		  <% } %>
 			<h1><%= theEvent.name %></h1>
 			<p><b><%= theEvent.name + " for " + team.name + " " + team.sport %></b><br/>
 				Location: <%= theEvent.street + " " + theEvent.city + " " + theEvent.state + " " + theEvent.zip %><br />
@@ -32,7 +46,8 @@
 						</tr>
 					<% } %>
 				</tbody>
-			</table>
+			</table> <br />
+			<a class="newObjButton" href=<%= theEvent.name + '/newRide' %>>New Ride</a> <br />
 			<%= JSON.stringify(team) %>
 			<%= JSON.stringify(theEvent) %>
 			<%= JSON.stringify(rides) %>

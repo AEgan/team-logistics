@@ -125,6 +125,20 @@ exports.postNewEvent = function(req, res) {
 exports.showEvent = function(req, res) {
 	var eventName = req.params.event;
 	var teamName = req.params.name;
+	var theUser = undefined;
+	if(req.session && req.session.user) {
+		theUser = req.session.user;
+	}
+	var warningMessage = undefined;
+	var successMessage = undefined;
+	if(req.session && req.session.warning) {
+		warningMessage = req.session.warning;
+		delete req.session.warning;
+	}
+	if(req.session && req.session.success) {
+		successMessage = req.session.success;
+		delete req.session.success;
+	}
 	teams.showEvent(teamName, eventName, function(team, theEvent) {
 		var address = "" + theEvent.street + " " + theEvent.city + " " + theEvent.state + " " + theEvent.zip;
 		var markers = [
@@ -148,7 +162,7 @@ exports.showEvent = function(req, res) {
 					callback();
 				});
 			}, function(err){
-				res.render('eventShow', {team: team, theEvent: theEvent, map: mapStr, rides: rides_for_event, drivers: drivers});
+				res.render('eventShow', {team: team, theEvent: theEvent, map: mapStr, rides: rides_for_event, drivers: drivers, 'current_user': theUser, 'warning': warningMessage, 'success': successMessage});
 			});
 		});
 	});
