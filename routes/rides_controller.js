@@ -30,7 +30,16 @@ exports.create = function(req, res) {
 	if(req.session && req.session.user) {
 		theUser = req.session.user;
 	}
-	res.render('newRide', {'teamName': req.params.name, 'eventName': req.params.event, 'current_user': theUser});
+	else {
+		req.session.warning = "You must log in to do that!";
+		return res.redirect('/login');
+	}
+	var warningMessage = undefined;
+	if(req.session && req.session.warning) {
+		warningMessage = req.session.warning;
+		delete req.session.warning;
+	}
+	res.render('newRide', {'teamName': req.params.name, 'eventName': req.params.event, 'current_user': theUser, 'warning': warningMessage});
 }
 
 exports.insert = function(req, res) {

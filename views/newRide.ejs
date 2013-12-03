@@ -15,12 +15,12 @@
 		<% include navigation.ejs %>
 		<% } %>
 		<div id="mainContent">
+			<% if(warning) { %>
 			<div class="warning">
-		      <p>Warning</p>
+		      <p><%= warning %></p>
 		  </div>
-			<h1>New Ride</h1>
-			<p><%= teamName %></p>
-			<p><%= eventName %></p>
+		  <% } %>
+			<h1><%= 'New Ride for ' + teamName + "'s " + eventName %></h1>
 			<form id="newRideForm" action=<%='/teams/'+teamName+'/'+eventName+'/newRide'%> method='post'>
 				Driver ID <input type="text" name="driverID"><br />
 				Departure Time <input type="datetime-local" name="time"><br />
