@@ -4,7 +4,10 @@ $(document).ready(function(){
 		$(value).click(function(){
 			var aj = $.ajax({
 				url: '/addRideMember',
-				type: 'put'
+				type: 'put',
+				data: {
+					rideID: $(value).attr('data')
+				}
 			});
 			aj.done(function(data) {
 				console.log(data);

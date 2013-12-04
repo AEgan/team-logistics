@@ -54,5 +54,15 @@ exports.insert = function(req, res) {
 }
 
 exports.addRideMember = function(req, res) {
-	res.send('in the function to addd a member to a ride');
+	var userID = undefined;
+	if(req.session && req.session.user) {
+		userID = req.session.user._id;
+	}
+	else {
+		req.session.warning = "You must log in to do that!";
+		return res.redirect('/login');
+	}
+	rides.add_rider_to_ride(req.body.rideID, userID, function(docs) {
+		res.send('in the function to addd a member to a ride with the ID ' + req.body.rideID + " and the user id is " + userID);
+	});
 }

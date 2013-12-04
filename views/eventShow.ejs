@@ -31,6 +31,7 @@
 			<p>
 				<img src=<%= map %> alt="map">
 			</p>
+			<% if(current_user) { %>
 			<table class="stripedHoveredTable">
 				<thead>
 					<th>Driver</th>
@@ -48,7 +49,9 @@
 						</tr>
 					<% } %>
 				</tbody>
-			</table> <br />
+			</table> 
+			<% } %>
+			<br />
 			<a class="newObjButton" href=<%= theEvent.name + '/newRide' %>>New Ride</a> <br />
 			<%= JSON.stringify(team) %>
 			<%= JSON.stringify(theEvent) %>
