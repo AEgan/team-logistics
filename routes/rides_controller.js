@@ -52,3 +52,7 @@ exports.insert = function(req, res) {
 		});
 	});
 }
+
+exports.addRideMember = function(req, res) {
+	res.send('in the function to addd a member to a ride');
+}

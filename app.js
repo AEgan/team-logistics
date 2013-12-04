@@ -42,6 +42,7 @@ app.get('/login', routesIndex.login);
 app.post('/login', users.auth);
 app.get('/logout', users.logout);
 app.get('/myProfile', users.myProfile);
+app.put('/addRideMember', rides.addRideMember);
 
 app.listen(12345);
 console.log("======================================");
