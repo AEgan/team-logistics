@@ -149,3 +149,16 @@ a.details:hover {
 	border: 2px solid green;
 }
 
+.joinRideButton {
+	color: #FFFFFF;
+	border-top-width: 0;
+	border-bottom-width: 0;
+	border-left-width: 0;
+	border-right-width: 0;
+	background-color: #00BFFF;
+}
+
+.joinRideButton:hover {
+	background-color: #888888;
+}
+
