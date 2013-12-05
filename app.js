@@ -47,4 +47,5 @@ app.put('/addRideMember', rides.addRideMember);
 app.listen(12345);
 console.log("======================================");
 console.log("Express server listening on port 12345");
+console.log('This process is pid ' + process.pid);
 console.log("======================================");

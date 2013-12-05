@@ -1,0 +1,5 @@
+# nodemon ignore files
+/public/*
+
+./README.md
+*.ejs
