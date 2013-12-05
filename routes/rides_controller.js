@@ -43,9 +43,17 @@ exports.create = function(req, res) {
 }
 
 exports.insert = function(req, res) {
+	var theUser = undefined;
+	if(req.session && req.session.user) {
+		theUser = req.session.user;
+	}
+	else {
+		req.session.warning = "You must log in to do that!";
+		return res.redirect('/login');
+	}
 	teams.find(req.params.name, function(docs) {
 		var teamID = docs[0]._id;
-		rides.insert(teamID, req.params.event, req.body.driverID, req.body.time, req.body.spots, function(result) {
+		rides.insert(teamID, req.params.event, theUser._id, req.body.time, req.body.spots, function(result) {
 			teams.showEvent(req.params.name, req.params.event, function(team, theEvent) {
 				res.redirect('/teams/' + team.name + '/' + theEvent.name);
 			});

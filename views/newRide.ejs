@@ -22,7 +22,6 @@
 		  <% } %>
 			<h1><%= 'New Ride for ' + teamName + "'s " + eventName %></h1>
 			<form id="newRideForm" action=<%='/teams/'+teamName+'/'+eventName+'/newRide'%> method='post'>
-				Driver ID <input type="text" name="driverID"><br />
 				Departure Time <input type="datetime-local" name="time"><br />
 				Number of spots <input type="number" name="spots"><br />
 				<input type="submit" value="Create">
