@@ -101,8 +101,13 @@ exports.newEventPage = function(req, res) {
 		req.session.warning = "You must be logged in to create a new event";
 		return res.redirect('/login');
 	}
+	var warningMessage = undefined;
+	if(req.session && req.session.warning) {
+		warningMessage = req.session.warning;
+		delete req.session.warning;
+	}
 	teams.find(name, function(model) {
-		res.render('newEvent', {"team": model[0], "current_user": theUser});
+		res.render('newEvent', {"team": model[0], "current_user": theUser, 'warning': warningMessage});
 	});
 }
 
