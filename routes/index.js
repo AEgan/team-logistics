@@ -9,7 +9,7 @@ exports.index = function(req, res) {
 		warningMessage = req.session.warning;
 		delete req.session.warning;
 	}
-	res.render('index', {title:'Welcome', current_user: theUser, success: successMessage, warning: warningMessage});
+	res.render('index', {current_user: theUser, success: successMessage, warning: warningMessage});
 }
 
 exports.login = function(req, res) {

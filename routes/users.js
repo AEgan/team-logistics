@@ -154,10 +154,10 @@ exports.auth = function(req, res) {
 exports.logout = function(req, res) {
 	if(req.session && req.session.user) {
 		delete req.session.user;
-		res.render('index', {title: "Logged Out", current_user: undefined});
+		res.render('index', {success: "Logged Out", current_user: undefined, warning: undefined});
 	}
 	else {
-		res.render('index', {title: "You were never logged in...", current_user: undefined})
+		res.render('index', {warning: "You were never logged in...", success: undefined, current_user: undefined})
 	}
 }
 
