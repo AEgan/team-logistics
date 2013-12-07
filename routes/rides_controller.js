@@ -1,4 +1,5 @@
 var teams = require('../models/team.js');
+var team_members = require('../models/team_member.js');
 var async = require("async");
 var users = require('../models/user.js');
 var rides = require('../models/ride.js');
@@ -39,7 +40,15 @@ exports.create = function(req, res) {
 		warningMessage = req.session.warning;
 		delete req.session.warning;
 	}
-	res.render('newRide', {'teamName': req.params.name, 'eventName': req.params.event, 'current_user': theUser, 'warning': warningMessage});
+	team_members.for_user(theUser._id, function(model) {
+		if(model.length === 0) {
+			req.session.warning = "You are not a member of this team, so you cannot create a ride for this event";
+			return res.redirect('/');
+		}
+		else {
+			res.render('newRide', {'teamName': req.params.name, 'eventName': req.params.event, 'current_user': theUser, 'warning': warningMessage});
+		}
+	});
 }
 
 exports.insert = function(req, res) {
