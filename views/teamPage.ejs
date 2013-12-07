@@ -46,7 +46,7 @@
 								<tbody>
 									<% for(var i = 0; i < members.length; i++) { %>
 										<tr>
-											<td><%= members[i].username %></td>
+											<td><a href=<%='/users/'+members[i].username %>><%= members[i].username %></a></td>
 											<td><a href=<%= '/users/'+members[i].username %>>Details</a></td>
 										</tr>
 									<% } %>
