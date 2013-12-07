@@ -40,14 +40,17 @@ exports.create = function(req, res) {
 		warningMessage = req.session.warning;
 		delete req.session.warning;
 	}
-	team_members.for_user(theUser._id, function(model) {
-		if(model.length === 0) {
-			req.session.warning = "You are not a member of this team, so you cannot create a ride for this event";
-			return res.redirect('/');
-		}
-		else {
-			res.render('newRide', {'teamName': req.params.name, 'eventName': req.params.event, 'current_user': theUser, 'warning': warningMessage});
-		}
+	teams.find(req.params.name, function(docs) {
+		var theTeam = docs[0];
+		team_members.user_on_team(theUser._id, theTeam._id, function(models) {
+			if(models.length === 0) {
+				req.session.warning = "You are not a member of this team, so you cannot create a ride for this event";
+				return res.redirect('/');
+			}
+			else {
+				res.render('newRide', {'teamName': req.params.name, 'eventName': req.params.event, 'current_user': theUser, 'warning': warningMessage});
+			}
+		});
 	});
 }
 
