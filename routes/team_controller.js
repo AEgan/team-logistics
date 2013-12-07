@@ -107,8 +107,17 @@ exports.newEventPage = function(req, res) {
 		delete req.session.warning;
 	}
 	teams.find(name, function(model) {
-		res.render('newEvent', {"team": model[0], "current_user": theUser, 'warning': warningMessage});
-	});
+		team_members.user_on_team(theUser._id, model[0]._id, function(docs) {
+			if(docs.length === 0) {
+				req.session.warning = "You must be a member of this team to do that"
+				return res.redirect('/');
+			}
+			else {
+				res.render('newEvent', {"team": model[0], "current_user": theUser, 'warning': warningMessage});
+			}
+		});
+	}); 
+	
 }
 
 /*

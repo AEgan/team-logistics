@@ -45,6 +45,18 @@ exports.for_user = function(userID, callback) {
 	});
 }
 
+exports.user_on_team = function(userID, teamID, callback) {
+	mongoClient.connect(server+database, function(err, db) {
+		var crsr = db.collection(collection).find({"userID": "" + userID, "teamID": "" + teamID});
+		crsr.toArray(function(err, docs){
+			if(err) {
+				doError(err);
+			}
+			callback(docs);
+		});
+	});
+}
+
 /*
  * get all of the team members for a given team
  */
