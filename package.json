@@ -1,9 +1,18 @@
 {
 	"name": "Team-Logistics",
 	"version": "0.0.1",
+	"description": "An application to coordinate rides to sporting events for parents.",
+	"author": {
+		"name": "Alex Egan",
+		"email": "aegan@andrew.cmu.edu"
+	},
 	"scripts": {
 		"start": "node app"
 	},
+	"repository": {
+    "type": "git",
+    "url": "https://github.com/AEgan/team-logistics"
+  },
 	"dependencies": {
 		"express": "3.0.0",
     "ejs": "*",
