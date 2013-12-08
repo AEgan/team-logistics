@@ -26,7 +26,12 @@ exports.newTeam = function(req, res) {
 		theUser = req.session.user;
 	}
 	if(theUser) {
-		res.render('newTeam', {current_user: theUser});
+		var warningMessage = undefined;
+		if(req.session.warning) {
+			warningMessage = req.session.warning;
+			delete req.session.warning;
+		}
+		res.render('newTeam', {current_user: theUser, warning: warningMessage});
 	}
 	else {
 		req.session.warning = "You must log in to do that!";
