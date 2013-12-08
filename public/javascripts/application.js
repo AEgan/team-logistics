@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	$('.success').hide();
+	$('.warning').hide();
 	var joinRideButtons = $('.joinRideButton');
 	$.each(joinRideButtons, function(index, value) {
 		$(value).click(function(){
@@ -10,7 +12,14 @@ $(document).ready(function(){
 				}
 			});
 			aj.done(function(data) {
-				console.log(data);
+				if(data.pass) {
+					$('.success').append("<p>" + data.message + "</p>");
+					$('.success').show();
+				}
+				else {
+					$('.warning').append("<p>" + data.message + "</p>");
+					$('.warning').show();
+				}
 			});
 		});
 	});

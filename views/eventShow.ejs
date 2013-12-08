@@ -13,16 +13,12 @@
 		<% include navigation.ejs %>
 		<% } %>
 		<div id="mainContent">
-			<% if(warning) { %>
-			<div class="warning">
-		      <p><%= warning %></p>
+			<!-- Success box -->
+		  <div class="success">  	
 		  </div>
-		  <% } %>
-		  <% if(success) { %>
-		  <div class="success">
-		      <p><%= success %></p>
+		  <!-- Warning box -->
+		  <div class="warning">  	
 		  </div>
-		  <% } %>
 			<h1><%= theEvent.name %></h1>
 			<p><b><%= theEvent.name + " for " + team.name + " " + team.sport %></b><br/>
 				Location: <%= theEvent.street + " " + theEvent.city + " " + theEvent.state + " " + theEvent.zip %><br />

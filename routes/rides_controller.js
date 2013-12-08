@@ -83,6 +83,9 @@ exports.addRideMember = function(req, res) {
 		return res.redirect('/login');
 	}
 	rides.add_rider_to_ride(req.body.rideID, userID, function(docs) {
-		res.send('in the function to addd a member to a ride with the ID ' + req.body.rideID + " and the user id is " + userID);
+		var data = {};
+		data.pass = true;
+		data.message = "You have successfully been added to this ride"
+		res.send(data);
 	});
 }
