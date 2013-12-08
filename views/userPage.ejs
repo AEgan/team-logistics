@@ -37,7 +37,7 @@
             <b><%= obj.zip %></b>
           </td>
           <td>
-            <% if(teams.length === 0) { %>
+            <% if(!teams || teams.length === 0) { %>
               <b>This user is not currently a member of any teams</b>
             <% } else { %>
               <table class="stripedHoveredTable">

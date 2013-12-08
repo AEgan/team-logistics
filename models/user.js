@@ -57,6 +57,24 @@ exports.find = function(query, callback) {
 }
 
 /*
+ * gets a user by a name
+ */
+ exports.find_by_username = function(username, callback) {
+ 	mongoClient.connect(server+database, function(err, db) {
+ 		if(err) {
+ 			doError(err);
+ 		}
+ 		var crsr = db.collection(collection).find({'username': username});
+ 		crsr.toArray(function(err, docs) {
+ 			if(err) {
+ 				doError(err);
+ 			}
+ 			callback(docs);
+ 		});
+ 	});
+ }
+
+/*
  * gets a user by its ID
  */
 exports.find_by_id = function(id, callback) {
