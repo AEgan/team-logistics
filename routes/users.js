@@ -34,19 +34,21 @@ exports.insert = function(req, res) {
 	var zip = req.body.zip;
 	var role = req.body.role;
 	if(password !== password_confirmation) {
-		res.render('userPage', {title:"Password fields did not match", obj:""});
-	}
-	var active = true;
-	if(req.body.active == "on") {
-		active = true;
+		return res.render('signup', {warning:"Password fields did not match"});
 	}
 	else {
-		active = false;
+		var active = true;
+		if(req.body.active == "on") {
+			active = true;
+		}
+		else {
+			active = false;
+		}
+		users.insert(username, password, active, street, city, state, zip, role, function(model) {
+			req.session.user = model[0];
+			res.render('userPage', {title:"Welcome to the website!", obj:model, current_user: req.session.user, warning: undefined, success: "Welcome to the site!"});
+		});
 	}
-	users.insert(username, password, active, street, city, state, zip, role, function(model) {
-		req.session.user = model[0];
-		res.render('index', {title:"Inserted the following object", obj:model, current_user: req.session.user, warning: undefined, success: "Welcome to the site!"});
-	});
 }
 
 /*

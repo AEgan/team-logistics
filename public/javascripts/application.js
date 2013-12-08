@@ -1,6 +1,6 @@
 $(document).ready(function(){
-	$('.success').hide();
-	$('.warning').hide();
+	$('.rideSuccess').hide();
+	$('.rideWarning').hide();
 	var joinRideButtons = $('.joinRideButton');
 	$.each(joinRideButtons, function(index, value) {
 		$(value).click(function(){
@@ -14,12 +14,12 @@ $(document).ready(function(){
 			});
 			aj.done(function(data) {
 				if(data.pass) {
-					$('.success').append("<p>" + data.message + "</p>");
-					$('.success').show();
+					$('.rideSuccess').append("<p>" + data.message + "</p>");
+					$('.rideSuccess').show();
 				}
 				else {
-					$('.warning').append("<p>" + data.message + "</p>");
-					$('.warning').show();
+					$('.rideWarning').append("<p>" + data.message + "</p>");
+					$('.rideWarning').show();
 				}
 			});
 		});
