@@ -33,7 +33,7 @@
 					<p><%= team.name + " " + team.sport + " coached by " + team.coach %></p>
 					</td>
 					<td>
-						<% if(members.length === 0 ) {%>
+						<% if(!members || members.length === 0 ) {%>
 							<b>There are no people currently on this team</b><br>
 						<% } else { %>
 							<table class="stripedHoveredTable">

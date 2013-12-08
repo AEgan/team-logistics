@@ -46,16 +46,52 @@ exports.insert = function(req, res) {
 	var name = req.body.name;
 	var sport = req.body.sport;
 	var coach = req.body.coach;
-	var active = true;
-	if(req.body.active == "on") {
-		active = true;
+	if(!name || name == '') {
+		return res.render('newTeam', {'current_user': req.session.user, 'warning': 'You must enter a team name'});
 	}
 	else {
-		active = false;
+		teams.find(name, function(docs) {
+			if(docs.length != 0) {
+				return res.render('newTeam', {'current_user': req.session.user, 'warning': "This team name has already been taken"});
+			}
+			else {
+				var warningMessage = undefined;
+				if(!sport || sport == '') {
+					if(!warningMessage) {
+						warningMessage = "You must enter a sport for this team";
+					}
+					else {
+						warningMessage += ", you must enter a sport for this team";
+					}
+				}
+				if(!coach || coach == '') {
+					if(!warningMessage) {
+						warningMessage = "You must enter a coach name for this team";
+					}
+					else {
+						warningMessage += ", you must enter a coach name for this team";
+					}
+				}
+				var active = true;
+				if(req.session.user.role == 'admin') {
+					if(req.body.active == "on") {
+						active = true;
+					}
+					else {
+						active = false;
+					}
+				}
+				if(warningMessage) {
+					return res.render('newTeam', {'current_user': req.session.user, 'warning': warningMessage});
+				}
+				else {
+					teams.insert(name, sport, coach, active, function(model) {
+						res.render('teamPage', {team: model, warning: undefined, success: "Team successfully created", members: undefined, 'current_user': req.session.user});
+					});
+				}
+			}
+		});
 	}
-	teams.insert(name, sport, coach, active, function(model) {
-		res.render('teamPage', {obj: model});
-	});
 }
 
  /*

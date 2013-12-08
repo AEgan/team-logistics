@@ -25,7 +25,9 @@
 					Name <input type="text" id="name" name="name" placeholder="name"><br>
 					Sport <input type="text" id="sport" name="sport"><br>
 					Coach Name <input type="text" name="coach" id="coach"><br>
-					Active? <input type="checkbox" name="active" id="active"><br>
+					<% if(current_user.role == 'admin') { %>
+						Active? <input type="checkbox" name="active" id="active"><br>
+					<% } %>
 					<input type="submit" value="Create">
 				</form>
 			</div>
