@@ -9,6 +9,10 @@ exports.index = function(req, res) {
 		warningMessage = req.session.warning;
 		delete req.session.warning;
 	}
+	if(req.session && req.session.success) {
+		successMessage = req.session.success;
+		delete req.session.success;
+	}
 	res.render('index', {current_user: theUser, success: successMessage, warning: warningMessage});
 }
 

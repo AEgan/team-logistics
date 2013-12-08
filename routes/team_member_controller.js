@@ -12,15 +12,25 @@ exports.newMember = function(req, res) {
 		res.render('newMember', {"current_user": theUser});
 	}
 	else {
-		res.redirect('login', {current_user: theUser, warning: 'You must be logged in to do that!'});
+		req.session.warning = "You must be logged in to do that";
+		res.redirect('/login');
 	}
 }
 
 exports.addMember = function(req, res) {
+	var theUser = undefined;
+	if(req.session && req.session.user) {
+		theUser = req.session.user;
+	}
+	else {
+		req.session.warning = "You must be logged in to do that";
+		return res.redirect('/login');
+	}
 	var userID = req.body.userID;
 	var teamID = req.body.teamID;
 	var date = Date();
 	team_members.insert(teamID, userID, date, function(model) {
-		res.render('index');
+		req.session.success = "You have successfully added a new member to the team";
+		res.redirect('/');
 	});
 }
