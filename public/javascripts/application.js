@@ -8,7 +8,8 @@ $(document).ready(function(){
 				url: '/addRideMember',
 				type: 'put',
 				data: {
-					rideID: $(value).attr('data')
+					rideID: $(value).attr('data'),
+					teamID: $(value).attr('team')
 				}
 			});
 			aj.done(function(data) {

@@ -41,7 +41,7 @@
 							<td><%= drivers[i].username %></td>
 							<td><%= rides[i].departureTime %></td>
 							<td><%= rides[i].spots - rides[i].riders.length %></td>
-							<td><button class="joinRideButton" data=<%= rides[i]._id %>>Join Ride</button></td>
+							<td><button class="joinRideButton" data=<%= rides[i]._id %> team=<%= team._id %>>Join Ride</button></td>
 						</tr>
 					<% } %>
 				</tbody>
