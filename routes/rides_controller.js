@@ -82,10 +82,19 @@ exports.addRideMember = function(req, res) {
 		req.session.warning = "You must log in to do that!";
 		return res.redirect('/login');
 	}
-	rides.add_rider_to_ride(req.body.rideID, userID, function(docs) {
-		var data = {};
-		data.pass = true;
-		data.message = "You have successfully been added to this ride"
-		res.send(data);
+	var data = {};
+	rides.rider_can_join(req.body.rideID, userID, function(result) {
+		if(result.joined) {
+			rides.add_rider_to_ride(req.body.rideID, userID, function(docs) {
+				data.pass = true;
+				data.message = "You have successfully been added to this ride";
+				res.send(data);
+			});
+		}
+		else {
+			data.pass = false;
+			data.message = result.message;
+			res.send(data);
+		}
 	});
 }

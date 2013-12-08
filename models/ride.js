@@ -13,6 +13,7 @@ var server = "mongodb://localhost:27017/";
 var collection = "rides";
 var database = "logistics";
 var mongodb = require("mongodb");
+var async = require("async");
 
 var doError = function(e) {
 	util.debug("ERROR: " + error);
@@ -93,3 +94,54 @@ exports.add_rider_to_ride = function(rideID, riderID, callback) {
  		});
  	});
  }
+
+ /*
+  * Determines if a rider can join the ride
+  */
+  exports.rider_can_join = function(rideID, riderID, callback) {
+  	mongoClient.connect(server+database, function(err, db) {
+  		if(err) {
+  			doError(err);
+  		}
+  		var theRideCrsr = db.collection(collection).find({'_id': mongodb.ObjectID(rideID)});
+  		theRideCrsr.toArray(function(err, docs) {
+  			if(err) {
+  				doError(err);
+  			}
+  			var ride = docs[0];
+  			var teamID = ride.teamID;
+  			var eventName = ride.eventName;
+  			var result = {};
+  			var ridesCrsr = db.collection(collection).find({"teamID": teamID, "eventName": eventName});
+  			ridesCrsr.toArray(function(err, docs) {
+  				if(err) {
+  					doError(err);
+  				}
+  				async.forEach(docs, function(item, innerCallback) {
+  					if(item.driverID == riderID) {
+  						result.joined = false;
+  						result.message = "You have already driving to this event";
+  						return callback(result);
+  					}
+  					else {
+  						for(var i = 0; i < item.riders.length; i++) {
+  							if(item.riders[i].riderID == riderID) {
+  								result.joined = false;
+  								result.message = "You have already joined a ride for this event";
+  								return callback(result);
+  							}
+  						}
+  					}//what
+  					innerCallback();
+  				}, function(err) {
+  					if(err) {
+  						doError(err);
+  					}
+  					result.joined = true;
+  					result.message = "You have successfully joined this ride";
+  					callback(result);
+  				});
+  			});
+  		});
+  	});
+  }
