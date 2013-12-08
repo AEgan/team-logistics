@@ -37,7 +37,6 @@
             <b><%= obj.zip %></b>
           </td>
           <td>
-            <%= JSON.stringify(teams) %>
             <% if(teams.length === 0) { %>
               <b>This user is not currently a member of any teams</b>
             <% } else { %>
@@ -59,9 +58,6 @@
               </table>
             <% } %>
           </td>
-          <tr>
-            <td><%= JSON.stringify(obj) %></td>
-          </tr>
         </tr>
       </table>
       </div>

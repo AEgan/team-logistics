@@ -31,11 +31,8 @@
 					<td>
 					<img src="../images/bonesaw.jpg" width="300" height="264">
 					<p><%= team.name + " " + team.sport + " coached by " + team.coach %></p>
-					<p><%= team._id %></p>
 					</td>
 					<td>
-						<!-- Saying this for now until I have team-user relationships set up -->
-						<%= JSON.stringify(members) %>
 						<% if(members.length === 0 ) {%>
 							<b>There are no people currently on this team</b><br>
 						<% } else { %>
@@ -74,7 +71,6 @@
 					</td>
 				</tr>
 			</table>
-			<b><%= JSON.stringify(team) %></b>
 		</div>
 	</body>
 </html>
