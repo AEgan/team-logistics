@@ -38,10 +38,57 @@ exports.insert = function(req, res) {
 	var state = req.body.state;
 	var zip = req.body.zip;
 	var role = req.body.role;
-	if(password !== password_confirmation) {
-		return res.render('signup', {warning:"Password fields did not match"});
+	var warningMessage = undefined;
+	if(!username || username == "") {
+		if(warningMessage) {
+			warningMessage += ", you must create a username";
+		}
+		else {
+			warningMessage = "You must create a username";
+		}
 	}
-	else {
+	if(!street || street == "") {
+		if(warningMessage) {
+			warningMessage += ", you must enter your street";
+		}
+		else {
+			warningMessage = "You must enter your street";
+		}
+	}
+	if(!city || city == "") {
+		if(warningMessage) {
+			warningMessage += ", you must enter your city";
+		}
+		else {
+			warningMessage = "You must enter your city";
+		}
+	}
+	var states = ["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+	if(!state || states.indexOf(state) == -1) {
+		if(warningMessage) {
+			warningMessage += "You must enter a valid state";
+		}
+		else {
+			warningMessage = "You must enter a valid state";
+		}
+	}
+	if(!zip || zip == "" || zip.length != 5) {
+		if(warningMessage) {
+			warningMessage += ", you must enter a valid zipcode";
+		}
+		else {
+			warningMessage = "You must enter a valid zipcode";
+		}
+	}
+	if(password !== password_confirmation || !password || !password_confirmation) {
+		if(warningMessage) {
+			warningMessage += ", password fields did not match";
+		}
+		else {
+			warningMessage = "Password fields did not match";
+		}
+	}
+	if(req.session && req.session.user) {
 		var active = true;
 		if(req.body.active == "on") {
 			active = true;
@@ -49,10 +96,29 @@ exports.insert = function(req, res) {
 		else {
 			active = false;
 		}
-		users.insert(username, password, active, street, city, state, zip, role, function(model) {
-			req.session.user = model[0];
-			res.render('userPage', {title:"Welcome to the website!", obj:model, current_user: req.session.user, warning: undefined, success: "Welcome to the site!", teams: undefined});
+		var theRole = "member";
+		if(role == "admin") {
+			theRole = "admin";
+		}
+		if(warningMessage) {
+			return res.render('signup', {warning: warningMessage, current_user: req.session.user});
+		}
+		users.insert(username, password, active, street, city, state, zip, theRole, function(model) {
+			res.render('userPage', {title: "User created", obj: model, current_user: req.session.user, warning: undefined, success: "Created new user", "teams": undefined});
 		});
+	}
+	else {
+		var active = true;
+		var theRole = "member";
+		if(warningMessage) {
+			return res.render('signup', {warning: warningMessage, current_user: undefined, });
+		}
+		else {
+			users.insert(username, password, active, street, city, state, zip, theRole, function(model) {
+				req.session.user = model[0];
+				res.render('userPage', {title:"Welcome to the website!", obj:model, current_user: req.session.user, warning: undefined, success: "Welcome to the site!", teams: undefined});
+			});
+		}
 	}
 }
 
