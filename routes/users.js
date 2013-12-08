@@ -14,11 +14,16 @@ exports.create = function(req, res) {
 	if(req.session && req.session.user) {
 		theUser = req.session.user;
 	}
-	if(theUser) {
+	if(theUser && theUser.role == "member") {
 		req.session.warning = "You are currently logged in and can not create a user";
-		res.redirect('/');
+		return res.redirect('/');
 	}
-	res.render('signup', {warning: undefined});
+	else if (theUser && theUser.role == "admin"){
+		return res.render('signup', {warning: undefined, current_user: req.session.user});
+	}
+	else {
+		res.render('signup', {warning: undefined, current_user: undefined});
+	}
 }
 
 /*
@@ -46,7 +51,7 @@ exports.insert = function(req, res) {
 		}
 		users.insert(username, password, active, street, city, state, zip, role, function(model) {
 			req.session.user = model[0];
-			res.render('userPage', {title:"Welcome to the website!", obj:model, current_user: req.session.user, warning: undefined, success: "Welcome to the site!"});
+			res.render('userPage', {title:"Welcome to the website!", obj:model, current_user: req.session.user, warning: undefined, success: "Welcome to the site!", teams: undefined});
 		});
 	}
 }

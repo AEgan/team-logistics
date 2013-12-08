@@ -9,7 +9,11 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/application.css">
 	</head>
 	<body>
+		<% if(current_user) { %>
+		<% include loggedInNavigation.ejs %>
+		<% } else { %>
 		<% include navigation.ejs %>
+		<% } %>
 		<div id="mainContent">
 			<% if(warning) { %>
 			<div class="warning">
@@ -21,12 +25,14 @@
 				Username <input type="text" name="username"><br>
 				Password <input type="password" name="password"><br>
 				Password Confirmation <input type="password" name="passwordconfirmation"><br>
+				<% if(current_user) { %>
 				Active <input type="checkbox" name="active"><br>
 				Role <select name="role">
 							<option value="" selected>---</option>
 							<option value="member">Member</option>
 							<option value="admin">Administrator</option>
 						 </select><br>
+				<% } %>
 				Street <input type="text" name="street"><br>
 				City <input type="text" name="city"><br>
 				State <select name="state" id="state">
