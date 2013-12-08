@@ -168,3 +168,21 @@ exports.auth = function(username, password, callback) {
 		});
 	})
 }
+
+/*
+ * Gets all of the users
+ */
+exports.all = function(callback) {
+	mongoClient.connect(server+database, function(err, db) {
+		if(err) {
+			doError(err);
+		}
+		var crsr = db.collection(collection).find();
+		crsr.toArray(function(err, docs) {
+			if(err) {
+				doError(err);
+			}
+			callback(docs);
+		});
+	});
+}

@@ -1,5 +1,6 @@
 var team_members = require('../models/team_member.js');
 var teams = require('../models/team.js');
+var users = require('../models/user.js');
 /*
  * Renders page to add a new member
  */
@@ -9,7 +10,11 @@ exports.newMember = function(req, res) {
 		theUser = req.session.user;
 	}
 	if(theUser) {
-		res.render('newMember', {"current_user": theUser});
+		teams.list(function(teams) {
+			users.all(function(users) {
+				res.render('newMember', {"current_user": theUser, "users": users, "teams": teams});
+			});
+		});
 	}
 	else {
 		req.session.warning = "You must be logged in to do that";
