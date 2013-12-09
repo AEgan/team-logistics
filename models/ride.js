@@ -108,10 +108,15 @@ exports.add_rider_to_ride = function(rideID, riderID, callback) {
   			if(err) {
   				doError(err);
   			}
-  			var ride = docs[0];
+        var ride = docs[0];
   			var teamID = ride.teamID;
   			var eventName = ride.eventName;
   			var result = {};
+        if(ride.riders.length == ride.spots) {
+          result.joined = false;
+          result.message = "This ride is full";
+          return callback(result);
+        }
   			var ridesCrsr = db.collection(collection).find({"teamID": teamID, "eventName": eventName});
   			ridesCrsr.toArray(function(err, docs) {
   				if(err) {

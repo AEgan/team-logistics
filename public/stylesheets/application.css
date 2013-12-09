@@ -162,3 +162,21 @@ a.details:hover {
 	background-color: #888888;
 }
 
+.rideWarning {
+	background-color: rgb(250, 147, 157);
+	padding-bottom: .25%;
+	padding-top: .25%;
+	padding-left: 2%;
+	padding-right: 2%;
+	border: 2px solid red;
+}
+
+.rideSuccess {
+	background-color: rgb(171, 255, 160);
+	padding-bottom: .25%;
+	padding-top: .25%;
+	padding-left: 2%;
+	padding-right: 2%;
+	border: 2px solid green;
+}
+

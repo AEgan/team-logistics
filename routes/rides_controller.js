@@ -105,6 +105,7 @@ exports.insert = function(req, res) {
 				else {
 					rides.insert(teamID, req.params.event, theUser._id, req.body.time, req.body.spots, function(result) {
 						teams.showEvent(req.params.name, req.params.event, function(team, theEvent) {
+							req.session.success = "Created a new ride to " + theEvent.name;
 							res.redirect('/teams/' + team.name + '/' + theEvent.name);
 						});
 					});
