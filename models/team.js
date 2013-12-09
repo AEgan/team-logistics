@@ -199,11 +199,12 @@ exports.unique_event = function(team_name, event_name, callback) {
 				if(item.name == event_name) {
 					return callback(false);
 				}
+				innerCallback();
 			}, function(err){
 				if(err) {
 					doError(err);
 				}
-				callback(true);
+				return callback(true);
 			});
 		});
 	});

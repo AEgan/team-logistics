@@ -170,6 +170,14 @@ exports.newEventPage = function(req, res) {
  * posts a new event
  */
 exports.postNewEvent = function(req, res) {
+	var theUser = undefined;
+	if(req.session.user) {
+		theUser = req.session.user;
+	}
+	else {
+		req.session.warning = "You must be logged in to do this";
+		return res.redirect('/login');
+	}
 	var name = req.body.name;
 	var street = req.body.street;
 	var city = req.body.city;
@@ -177,11 +185,67 @@ exports.postNewEvent = function(req, res) {
 	var zip = req.body.zip;
 	var teamName = req.params.name;
 	var datetime = req.body.datetime;
-	//teams.unique_event()
-	teams.addEvent(name, street, city, state, zip, teamName, datetime, function(response) {
-		req.session.success = "Successfully added event " + name;
-		res.redirect('/teams/' + teamName  + '/' + name);
-	});
+
+	var warningMessage = undefined;
+	if(!name || name == '') {
+		if(!warningMessage) {
+			warningMessage = "You must enter a name for this event";
+		}
+		else {
+			warningMessage += ", you must enter a name for this event";
+		}
+	}
+	if(!street || street == '') {
+		if(!warningMessage) {
+			warningMessage = "You must enter a street for this event";
+		}
+		else {
+			warningMessage += ", you must enter a street for this event";
+		}
+	}
+	if(!city || city == '') {
+		if(!warningMessage) {
+			warningMessage = "You must enter a city for this event";
+		}
+		else {
+			warningMessage += ", you must enter a city for this event";
+		}
+	}
+	var states = ["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+	if(!state || state == '' || states.indexOf(state) == -1) {
+		if(!warningMessage) {
+			warningMessage = "You must enter a state for this event";
+		}
+		else {
+			warningMessage += ", you must enter a state for this event";
+		}
+	}
+	if(!datetime || datetime == '') {
+		if(!warningMessage) {
+			warningMessage = "You must enter a date and time for this event";
+		}
+		else {
+			warningMessage += ", you must enter a date and time for this event";
+		}
+	}
+	if(warningMessage) {
+		req.session.warning = warningMessage;
+		return res.redirect('teams/'+teamName+'/newEvent')
+	}
+	else {
+		teams.unique_event(teamName, name, function(result) {
+			if(result) {
+				teams.addEvent(name, street, city, state, zip, teamName, datetime, function(response) {
+					req.session.success = "Successfully added event " + name;
+					return res.redirect('/teams/' + teamName  + '/' + name);
+				});
+			}
+			else {
+				req.session.warning = "An event with this name already exists";
+				return res.redirect('/teams/'+teamName+'/newEvent');
+			}
+		});
+	}
 }
 
 exports.showEvent = function(req, res) {
