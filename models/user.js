@@ -9,9 +9,24 @@ var mongoClient = require("mongodb").MongoClient;
 var server = "mongodb://localhost:27017/";
 var collection = "users";
 var database = "logistics";
-var mongodb = require("mongodb");
 var gm = require('googlemaps');
 var bcrypt = require('bcrypt');
+/********************************************************/
+//nodejitsu pls work
+/********************************************************/
+var mongodb = require('mongodb');
+var db = new mongodb.Db('nodejitsu_egan_nodejitsudb900283013',
+ new mongodb.Server('ds045998.mongolab.com', 45998, {})
+);
+db.open(function (err, db_p) {
+ if (err) { throw err; }
+ db.authenticate('nodejitsu_egan', '9vf6n4o08kpim8r32oqq90mbli', function (err, replies) {
+   // You are now connected and authenticated.
+ });
+});
+/********************************************************/
+// pls
+/********************************************************/
 /*
  * Simple Error Handling function
  */
@@ -24,18 +39,13 @@ var doError = function(error) {
  * Insert a new user
  */
 exports.insert = function(username, password, active, street, city, state, zip, role, callback) {
-	mongoClient.connect(server+database, function(err, db) {
-		if(err) {
-			doError(err);
-		}
-		gm.geocode(street + " " + city + " " + state + " " + zip, function(err, result) {
-			var lng = result.results[0].geometry.bounds.northeast.lng;
-			var lat = result.results[0].geometry.bounds.northeast.lat;
-			var salt = bcrypt.genSaltSync(10);
-			var hash = bcrypt.hashSync(password, salt);
-			db.collection(collection).insert({"username": username, "password": hash, "active": active, "street": street, "city": city, "state": state, "zip": zip, "role": role, "latitude": lat, "longitude": lng}, {safe:true}, function(err, crsr) {
-				callback(crsr);
-			});
+	gm.geocode(street + " " + city + " " + state + " " + zip, function(err, result) {
+		var lng = result.results[0].geometry.bounds.northeast.lng;
+		var lat = result.results[0].geometry.bounds.northeast.lat;
+		var salt = bcrypt.genSaltSync(10);
+		var hash = bcrypt.hashSync(password, salt);
+		db.collection(collection).insert({"username": username, "password": hash, "active": active, "street": street, "city": city, "state": state, "zip": zip, "role": role, "latitude": lat, "longitude": lng}, {safe:true}, function(err, crsr) {
+			callback(crsr);
 		});
 	});
 }
@@ -44,17 +54,12 @@ exports.insert = function(username, password, active, street, city, state, zip, 
  * Find a user
  */
 exports.find = function(query, callback) {
-	mongoClient.connect(server+database, function(err, db) {
+	var crsr = db.collection(collection).find(query);
+	crsr.toArray(function(err, docs){
 		if(err) {
 			doError(err);
 		}
-		var crsr = db.collection(collection).find(query);
-		crsr.toArray(function(err, docs){
-			if(err) {
-				doError(err);
-			}
-			callback(docs);
-		});
+		callback(docs);
 	});
 }
 
@@ -62,32 +67,22 @@ exports.find = function(query, callback) {
  * gets a user by a name
  */
  exports.find_by_username = function(username, callback) {
- 	mongoClient.connect(server+database, function(err, db) {
- 		if(err) {
- 			doError(err);
- 		}
- 		var crsr = db.collection(collection).find({'username': username});
- 		crsr.toArray(function(err, docs) {
- 			if(err) {
- 				doError(err);
- 			}
- 			callback(docs);
- 		});
- 	});
+	var crsr = db.collection(collection).find({'username': username});
+	crsr.toArray(function(err, docs) {
+		if(err) {
+			doError(err);
+		}
+		callback(docs);
+	});
  }
 
 /*
  * gets a user by its ID
  */
 exports.find_by_id = function(id, callback) {
-	mongoClient.connect(server+database, function(err, db) {
-		if(err) {
-			doError(err);
-		}
-		var crsr = db.collection(collection).find({"_id": mongodb.ObjectID(id)});
-		crsr.toArray(function(err, docs) {
-			callback(docs[0]);
-		})
+	var crsr = db.collection(collection).find({"_id": mongodb.ObjectID(id)});
+	crsr.toArray(function(err, docs) {
+		callback(docs[0]);
 	});
 }
 
@@ -95,14 +90,9 @@ exports.find_by_id = function(id, callback) {
  * shows a user
  */
 exports.show = function(username, callback) {
-	mongoClient.connect(server+database, function(err, db) {
-		if(err) {
-			doError(err);
-		}
-		var  crsr = db.collection(collection).find({username: username});
-		crsr.toArray(function(err, docs){
-			callback(docs[0]);
-		});
+	var  crsr = db.collection(collection).find({username: username});
+	crsr.toArray(function(err, docs){
+		callback(docs[0]);
 	});
 }
 
@@ -110,16 +100,11 @@ exports.show = function(username, callback) {
  * Update a user. Note lack of role, users won't be able to update their own role
  */
 exports.update = function(username, newPassword, active, street, city, state, zip, callback) {
-	mongoClient.connect(server+database, function(err, db) {
+	db.collection(collection).update({"username": username}, {'$set': {'password': newPassword, 'active':active, "street": street, "city": city, "state": state, "zip": zip, "role": role}}, {new:true}, function(err, crsr) {
 		if(err) {
 			doError(err);
 		}
-		db.collection(collection).update({"username": username}, {'$set': {'password': newPassword, 'active':active, "street": street, "city": city, "state": state, "zip": zip, "role": role}}, {new:true}, function(err, crsr) {
-			if(err) {
-				doError(err);
-			}
-			callback("Update Worked");
-		});
+		callback("Update Worked");
 	});
 }
 
@@ -127,16 +112,11 @@ exports.update = function(username, newPassword, active, street, city, state, zi
  * Deletes a user
  */
 exports.destroy = function(username, callback) {
-	mongoClient.connect(server+database, function(err, db) {
+	db.collection(collection).findAndRemove({"username": username}, ["username", "ascending"], function(err, doc) {
 		if(err) {
 			doError(err);
 		}
-		db.collection(collection).findAndRemove({"username": username}, ["username", "ascending"], function(err, doc) {
-			if(err) {
-				doError(err);
-			}
-			callback("Successfully Removed");
-		});	
+		callback("Successfully Removed");
 	});
 }
 
@@ -144,16 +124,11 @@ exports.destroy = function(username, callback) {
  * Deactivates a user
  */
 exports.deactivate = function(username) {
-	mongoClient.connect(server+database, function(err, db) {
+	db.collection(collection).update({"username": username}, {'$set': {'active':false}}, {new:true}, function(err, crsr) {
 		if(err) {
 			doError(err);
 		}
-		db.collection(collection).update({"username": username}, {'$set': {'active':false}}, {new:true}, function(err, crsr) {
-			if(err) {
-				doError(err);
-			}
-			callback("Update Worked");
-		});
+		callback("Update Worked");
 	});
 }
 
@@ -161,55 +136,40 @@ exports.deactivate = function(username) {
  * Deactivates a user
  */
 exports.activate = function(username) {
-	mongoClient.connect(server+database, function(err, db) {
+	db.collection(collection).update({"username": username}, {'$set': {'active':true}}, {new:true}, function(err, crsr) {
 		if(err) {
 			doError(err);
 		}
-		db.collection(collection).update({"username": username}, {'$set': {'active':true}}, {new:true}, function(err, crsr) {
-			if(err) {
-				doError(err);
-			}
-			callback("Update Worked");
-		});
+		callback("Update Worked");
 	});
 }
 
 exports.auth = function(username, password, callback) {
-	mongoClient.connect(server+database, function(err, db) {
+	var salt = bcrypt.genSaltSync(10);
+	var hash = bcrypt.hashSync(password, salt);
+	var crsr = db.collection(collection).find({"username": username});
+	crsr.toArray(function(err, docs) {
 		if(err) {
 			doError(err);
 		}
-		var salt = bcrypt.genSaltSync(10);
-		var hash = bcrypt.hashSync(password, salt);
-		var crsr = db.collection(collection).find({"username": username});
-		crsr.toArray(function(err, docs) {
-			if(err) {
-				doError(err);
-			}
-			if(bcrypt.compareSync(password, docs[0].password)) {
-				callback(docs);
-			}
-			else {
-				callback([]);
-			}
-		});
-	})
+		if(bcrypt.compareSync(password, docs[0].password)) {
+			callback(docs);
+		}
+		else {
+			callback([]);
+		}
+	});
 }
 
 /*
  * Gets all of the users
  */
 exports.all = function(callback) {
-	mongoClient.connect(server+database, function(err, db) {
+	var crsr = db.collection(collection).find();
+	crsr.toArray(function(err, docs) {
 		if(err) {
 			doError(err);
 		}
-		var crsr = db.collection(collection).find();
-		crsr.toArray(function(err, docs) {
-			if(err) {
-				doError(err);
-			}
-			callback(docs);
-		});
+		callback(docs);
 	});
 }
