@@ -31,7 +31,9 @@ exports.insert = function(username, password, active, street, city, state, zip, 
 		gm.geocode(street + " " + city + " " + state + " " + zip, function(err, result) {
 			var lng = result.results[0].geometry.bounds.northeast.lng;
 			var lat = result.results[0].geometry.bounds.northeast.lat;
-			db.collection(collection).insert({"username": username, "password": password, "active": active, "street": street, "city": city, "state": state, "zip": zip, "role": role, "latitude": lat, "longitude": lng}, {safe:true}, function(err, crsr) {
+			var salt = bcrypt.genSaltSync(10);
+			var hash = bcrypt.hashSync(password, salt);
+			db.collection(collection).insert({"username": username, "password": hash, "active": active, "street": street, "city": city, "state": state, "zip": zip, "role": role, "latitude": lat, "longitude": lng}, {safe:true}, function(err, crsr) {
 				callback(crsr);
 			});
 		});
@@ -177,12 +179,19 @@ exports.auth = function(username, password, callback) {
 		if(err) {
 			doError(err);
 		}
-		var crsr = db.collection(collection).find({"username": username, "password": password});
+		var salt = bcrypt.genSaltSync(10);
+		var hash = bcrypt.hashSync(password, salt);
+		var crsr = db.collection(collection).find({"username": username});
 		crsr.toArray(function(err, docs) {
 			if(err) {
 				doError(err);
 			}
-			callback(docs);
+			if(bcrypt.compareSync(password, docs[0].password)) {
+				callback(docs);
+			}
+			else {
+				callback([]);
+			}
 		});
 	})
 }
