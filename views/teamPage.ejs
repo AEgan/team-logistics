@@ -16,62 +16,78 @@
 		<% include navigation.ejs %>
 		<% } %>
 		<div id="mainContent">
-			<% if(warning) { %>
-			<div class="warning">
-		      <p><%= warning %></p>
-		  </div>
-		  <% } %>
-		  <% if(success) { %>
-		  <div class="success">
-		      <p><%= success %></p>
-		  </div>
-		  <% } %>
-			<h1><%= team.name + " " + team.sport %></h1>
-			<table id="profileTable">
-				<tr>
-					<td>
-					<img src="../images/default_team.jpg" width="300" height="264">
-					<p><%= team.name + " " + team.sport + " coached by " + team.coach %></p>
-					</td>
-					<td>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<% if(warning) { %>
+							<div class="warning">
+				    	  <p><%= warning %></p>
+				  		</div>
+				  	<% } %>
+					</div>
+			  </div>
+			  <div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					  <% if(success) { %>
+					  	<div class="success">
+					      <p><%= success %></p>
+					  	</div>
+					  <% } %>
+				  </div>
+			  </div>
+			  <div class="row">
+			  	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<h1><%= team.name + " " + team.sport %></h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+						<img src="../images/default_team.jpg" width="300" height="264">
+						<p><%= team.name + " " + team.sport + " coached by " + team.coach %></p>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-8">
 						<% if(!members || members.length === 0 ) {%>
 							<b>There are no people currently on this team</b><br>
-						<% } else { %>
-							<table class="stripedHoveredTable">
+							<% } else { %>
+							<table class="table table-striped table-hover table-bordered">
 								<thead>
 									<th>Player Name<th>
 								</thead>
 								<tbody>
-									<% for(var i = 0; i < members.length; i++) { %>
-										<tr>
-											<td><a href=<%='/users/'+members[i].username %>><%= members[i].username %></a></td>
-											<td><a href=<%= '/users/'+members[i].username %>>Details</a></td>
-										</tr>
-									<% } %>
-								</tbody>
-							</table>
-						<% } %>
-						<a class="newObjButton" href='/newTeamMember'>Add Member</a>
-						<% if(team.events.length === 0) { %>
-							<b>There are no events currently planned for this team</b> <br>
-						<% } else { %>
-							<table class="stripedHoveredTable">
-								<thead>
-									<th>Event Name</th>
-								</thead>
-								<tbody>
-									<% for(var i = 0; i < team.events.length; i++) { %>
+								<% for(var i = 0; i < members.length; i++) { %>
 									<tr>
-										<td><a href=<%= "/teams/" + team.name + "/" + team.events[i].name %>><%= team.events[i].name %></a></td>
+										<td><a href=<%='/users/'+members[i].username %>><%= members[i].username %></a></td>
+										<td><a class="btn btn-info" href=<%= '/users/'+members[i].username %>>Details</a></td>
 									</tr>
-									<% } %>
+								<% } %>
 								</tbody>
 							</table>
-						<% } %>
-						<a class="newObjButton" href=<%= "/teams/"+team.name+"/newEvent"%>>Create New Event</a>
-					</td>
-				</tr>
-			</table>
+							<% } %>
+							<a class="btn btn-success" href='/newTeamMember'>Add Member</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+							<% if(team.events.length === 0) { %>
+								<b>There are no events currently planned for this team</b> <br>
+							<% } else { %>
+								<table class="table table-striped table-hover table-bordered">
+									<thead>
+										<th>Event Name</th>
+									</thead>
+									<tbody>
+										<% for(var i = 0; i < team.events.length; i++) { %>
+											<tr>
+												<td><a href=<%= "/teams/" + team.name + "/" + team.events[i].name %>><%= team.events[i].name %></a></td>
+											</tr>
+										<% } %>
+									</tbody>
+								</table>
+							<% } %>
+							<a class="btn btn-success" href=<%= "/teams/"+team.name+"/newEvent"%>>Create New Event</a>
+						</div>
+					</div>
+			</div><!-- container -->
 		</div>
 	</body>
 </html>
