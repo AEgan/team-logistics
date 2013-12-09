@@ -15,6 +15,7 @@ var collection = "teams";
 var database = "logistics";
 var gm = require('googlemaps');
 var mongodb = require("mongodb");
+var async = require('async');
 
 /*
  * Simple Error Handling function
@@ -173,12 +174,40 @@ exports.addEvent = function(name, street, city, state, zip, team_name, datetime,
 				if(err) {
 					doError(err);
 				}
-				callback("Event added");
+				callback(docs[0]);
 			});
 		});
 	});
 }
 
+/*
+ * checks to see if an event does not already exist for the team
+ */
+exports.unique_event = function(team_name, event_name, callback) {
+	mongoClient.connect(server+database, function(err, db) {
+		if(err) {
+			doError(err);
+		}
+		var crsr = db.collection(collection).find({'name': team_name});
+		crsr.toArray(function(err, docs) {
+			if(err) {
+				doError(err);
+			}
+			var theTeam = docs[0];
+			var events  = theTeam.events;
+			async.forEach(events, function(item, innerCallback) {
+				if(item.name == event_name) {
+					return callback(false);
+				}
+			}, function(err){
+				if(err) {
+					doError(err);
+				}
+				callback(true);
+			});
+		});
+	});
+}
 /*
  * Deactivates a team
  */

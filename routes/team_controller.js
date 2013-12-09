@@ -175,10 +175,12 @@ exports.postNewEvent = function(req, res) {
 	var city = req.body.city;
 	var state = req.body.state;
 	var zip = req.body.zip;
-	var teamName = req.body.teamName;
+	var teamName = req.params.name;
 	var datetime = req.body.datetime;
+	//teams.unique_event()
 	teams.addEvent(name, street, city, state, zip, teamName, datetime, function(response) {
-		res.render('eventShow');
+		req.session.success = "Successfully added event " + name;
+		res.redirect('/teams/' + teamName  + '/' + name);
 	});
 }
 
