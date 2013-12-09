@@ -145,7 +145,7 @@ exports.addEvent = function(name, street, city, state, zip, team_name, datetime,
 			if(err) {
 				doError(err);
 			}
-			callback(docs[0]);
+			callback(docs);
 		});
 	});
 }
