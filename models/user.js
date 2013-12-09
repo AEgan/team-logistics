@@ -144,6 +144,9 @@ exports.activate = function(username) {
 	});
 }
 
+/*
+ * authentication for users
+ */
 exports.auth = function(username, password, callback) {
 	var salt = bcrypt.genSaltSync(10);
 	var hash = bcrypt.hashSync(password, salt);
@@ -152,11 +155,14 @@ exports.auth = function(username, password, callback) {
 		if(err) {
 			doError(err);
 		}
+		if(docs.length == 0) {
+			return callback([]);
+		}
 		if(bcrypt.compareSync(password, docs[0].password)) {
-			callback(docs);
+			return callback(docs);
 		}
 		else {
-			callback([]);
+			return callback([]);
 		}
 	});
 }
