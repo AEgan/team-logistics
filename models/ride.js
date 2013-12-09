@@ -131,7 +131,7 @@ exports.add_rider_to_ride = function(rideID, riderID, callback) {
   								return callback(result);
   							}
   						}
-  					}//what
+  					}
   					innerCallback();
   				}, function(err) {
   					if(err) {
@@ -145,3 +145,43 @@ exports.add_rider_to_ride = function(rideID, riderID, callback) {
   		});
   	});
   }
+/*
+ * checks if a user is already on a ride for this event or is going to this event
+ */
+exports.user_already_going = function(userID, teamID, eventName, callback) {
+  mongoClient.connect(server+database, function(err, db) {
+    if(err) {
+      doError(err);
+    }
+    var ridesCrsr = db.collection(collection).find({'teamID': teamID, 'eventName': eventName});
+    ridesCrsr.toArray(function(err, docs) {
+      if(err) {
+        doError(err);
+      }
+      var result = {};
+      async.forEach(docs, function(item, innerCallback) {
+        if(item.driverID == userID) {
+          result.canCreate = false;
+          result.message = "You are already driving to this event";
+          return callback(result);
+        }
+        else {
+          for(var i = 0; i < item.riders.length; i++) {
+            if(item.riders[i].riderID == userID) {
+              result.canCreate = false;
+              result.message = "You are already on a ride for this event";
+              return callback(result);
+            }
+          }
+        }
+        innerCallback();
+      }, function(err) {
+        if(err) {
+          doError(err);
+        }
+        result.canCreate = true;
+        callback(result);
+      });
+    });
+  });
+}
