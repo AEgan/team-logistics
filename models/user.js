@@ -11,7 +11,7 @@ var collection = "users";
 var database = "logistics";
 var mongodb = require("mongodb");
 var gm = require('googlemaps');
-
+var bcrypt = require('bcrypt');
 /*
  * Simple Error Handling function
  */

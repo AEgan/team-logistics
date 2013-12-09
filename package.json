@@ -18,6 +18,7 @@
     "ejs": "*",
     "mongodb": "*",
     "async": "*",
-    "googlemaps": "*"
+    "googlemaps": "*",
+    "bcrypt": "*"
 	}
 }

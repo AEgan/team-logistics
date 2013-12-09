@@ -22,8 +22,11 @@ node app.js
 This project uses the node module googlemaps, which can be found here:
 https://github.com/moshen/node-googlemaps
 
-and async, which can be found here
+async, which can be found here
 https://github.com/caolan/async
+
+and bcrypt, which can be found here
+https://github.com/ncb000gt/node.bcrypt.js
 
 This project is currently in development, and there are many known issues that will be addressed in the next few days. I will update this README with a list of known issues that have not been fixed by the time the project is due, and may go back to fix them at a later date.
 
