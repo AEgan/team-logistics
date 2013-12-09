@@ -19,6 +19,11 @@
 		  <!-- Warning box -->
 		  <div class="rideWarning">  	
 		  </div>
+		  <% if(success) {%>
+		  <div class="success">
+		  	<%= success %>
+		  </div>
+		  <%} %>
 			<h1><%= theEvent.name %></h1>
 			<p><b><%= theEvent.name + " for " + team.name + " " + team.sport %></b><br/>
 				Location: <%= theEvent.street + " " + theEvent.city + " " + theEvent.state + " " + theEvent.zip %><br />
