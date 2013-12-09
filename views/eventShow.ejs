@@ -14,47 +14,71 @@
 		<% include navigation.ejs %>
 		<% } %>
 		<div id="mainContent">
-			<!-- Success box -->
-		  <div class="rideSuccess">  	
-		  </div>
-		  <!-- Warning box -->
-		  <div class="rideWarning">  	
-		  </div>
-		  <% if(success) {%>
-		  <div class="success">
-		  	<%= success %>
-		  </div>
-		  <%} %>
-			<h1><%= theEvent.name %></h1>
-			<p><b><%= theEvent.name + " for " + team.name + " " + team.sport %></b><br/>
-				Location: <%= theEvent.street + " " + theEvent.city + " " + theEvent.state + " " + theEvent.zip %><br />
-				Start Time: <%= theEvent.dateTime %>
-			</p>
-			<p>
-				<img src=<%= map %> alt="map">
-			</p>
-			<% if(current_user) { %>
-			<table class="stripedHoveredTable">
-				<thead>
-					<th>Driver</th>
-					<th>Departing</th>
-					<th>Spots available</th>
-					<th></th>
-				</thead>
-				<tbody>
-					<% for(var i = 0; i < rides.length; i++) { %>
-						<tr>
-							<td><%= drivers[i].username %></td>
-							<td><%= rides[i].departureTime %></td>
-							<td><%= rides[i].spots - rides[i].riders.length %></td>
-							<td><button class="joinRideButton" data=<%= rides[i]._id %> team=<%= team._id %>>Join Ride</button></td>
-						</tr>
-					<% } %>
-				</tbody>
-			</table> 
-			<% } %>
-			<br />
-			<a class="newObjButton" href=<%= theEvent.name + '/newRide' %>>New Ride</a> <br />
+			<div id="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<!-- Success box -->
+					  <div class="rideSuccess">  	
+					  </div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			  		<!-- Warning box -->
+			  		<div class="rideWarning">  	
+			  		</div>
+			  	</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			  	<% if(success) {%>
+			  		<div class="success">
+			  			<%= success %>
+			  		</div>
+			  	<% } %>
+				  </div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+						<h1><%= theEvent.name %></h1>
+						<p><b><%= theEvent.name + " for " + team.name + " " + team.sport %></b><br/>
+							Location: <%= theEvent.street + " " + theEvent.city + " " + theEvent.state + " " + theEvent.zip %><br />
+							Start Time: <%= theEvent.dateTime %>
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+						<p>
+							<img src=<%= map %> alt="map">
+						</p>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+						<% if(current_user) { %>
+						<table class="table table-hovered table-striped table-bordered">
+							<thead>
+								<th>Driver</th>
+								<th>Departing</th>
+								<th>Spots available</th>
+								<th></th>
+							</thead>
+							<tbody>
+								<% for(var i = 0; i < rides.length; i++) { %>
+									<tr>
+										<td><%= drivers[i].username %></td>
+										<td><%= rides[i].departureTime %></td>
+										<td><%= rides[i].spots - rides[i].riders.length %></td>
+										<td><button class="btn btn-primary" data=<%= rides[i]._id %> team=<%= team._id %>>Join Ride</button></td>
+									</tr>
+								<% } %>
+							</tbody>
+						</table> 
+						<% } %>
+						<br />
+						<a class="btn btn-success" href=<%= theEvent.name + '/newRide' %>>New Ride</a> <br />
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
