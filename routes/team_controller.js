@@ -86,7 +86,12 @@ exports.insert = function(req, res) {
 				}
 				else {
 					teams.insert(name, sport, coach, active, function(model) {
-						res.render('teamPage', {team: model, warning: undefined, success: "Team successfully created", members: undefined, 'current_user': req.session.user});
+						console.log("model is " + JSON.stringify(model));
+						console.log("model id is " + model._id);
+						team_members.insert(model._id, req.session.user._id, Date(), function(member) {
+							console.log(JSON.stringify(member));
+							res.render('teamPage', {team: model, warning: undefined, success: "Team successfully created", members: [req.session.user], 'current_user': req.session.user});
+						});
 					});
 				}
 			}

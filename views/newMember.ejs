@@ -15,9 +15,11 @@
 		<% include navigation.ejs %>
 		<% } %>
 		<div id="mainContent">
+			<% if(warning) { %>
 			<div class="warning">
-		      <p>Warning</p>
+		      <p><%= warning %></p>
 		  </div>
+		  <% } %>
 			<h1>Add a new member to this team</h1>
 			<form id="newTeamMember" action="/addnewmember" method="post">
 				Team<select name="teamID" id="teamSelect">
