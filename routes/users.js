@@ -111,7 +111,8 @@ exports.insert = function(req, res) {
 							return res.render('signup', {warning: warningMessage, current_user: req.session.user});
 						}
 						users.insert(username, password, active, street, city, state, zip, theRole, function(model) {
-							res.render('userPage', {title: "User created", obj: model, current_user: req.session.user, warning: undefined, success: "Created new user", "teams": undefined});
+							req.session.success = "Successfully created " + username;
+							res.redirect('/users/' + username);
 						});
 					}
 					else {
@@ -123,7 +124,8 @@ exports.insert = function(req, res) {
 						else {
 							users.insert(username, password, active, street, city, state, zip, theRole, function(model) {
 								req.session.user = model[0];
-								res.render('userPage', {title:"Welcome to the website!", obj:model, current_user: req.session.user, warning: undefined, success: "Welcome to the site!", teams: undefined});
+								req.session.success = "Welcome to the website, " + username + "!";
+								res.redirect('/users/' + username);
 							});
 						}
 					}
