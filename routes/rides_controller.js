@@ -65,11 +65,36 @@ exports.insert = function(req, res) {
 	}
 	teams.find(req.params.name, function(docs) {
 		var teamID = docs[0]._id;
-		rides.insert(teamID, req.params.event, theUser._id, req.body.time, req.body.spots, function(result) {
-			teams.showEvent(req.params.name, req.params.event, function(team, theEvent) {
-				res.redirect('/teams/' + team.name + '/' + theEvent.name);
+		var time = req.body.time;
+		var spots = req.body.spots;
+		var warningMessage = undefined;
+		if(!time || time == "") {
+			if(!warningMessage) {
+				warningMessage = "You must enter a time of departure";
+			}
+			else {
+				warningMessage += ", you must enter a time of departure";
+			}
+		}
+		if(!spots || spots == "" || spots <= 0) {
+			if(!warningMessage) {
+				warningMessage = "You must enter the number of available spaces, which must be greater than 0";
+			}
+			else {
+				warningMessage += ", you must enter the number of available spaces, which must be greater than 0";
+			}
+		}
+		if(warningMessage) {
+			req.session.warning = warningMessage;
+			res.redirect('/teams/'+req.params.name+'/'+req.params.event+'/newRide');
+		}
+		else {
+			rides.insert(teamID, req.params.event, theUser._id, req.body.time, req.body.spots, function(result) {
+				teams.showEvent(req.params.name, req.params.event, function(team, theEvent) {
+					res.redirect('/teams/' + team.name + '/' + theEvent.name);
+				});
 			});
-		});
+		}
 	});
 }
 
