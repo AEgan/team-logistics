@@ -16,17 +16,33 @@
 		<% include navigation.ejs %>
 		<% } %>
 		<div id="mainContent">
-			<% if(warning) { %>
-			<div class="warning">
-		      <p><%= warning %></p>
-		  </div>
-		  <% } %>
-			<h1><%= 'New Ride for ' + teamName + "'s " + eventName %></h1>
-			<form id="newRideForm" action=<%='/teams/'+teamName+'/'+eventName+'/newRide'%> method='post'>
-				Departure Time <input type="datetime-local" name="time"><br />
-				Number of spots <input type="number" name="spots"><br />
-				<input type="submit" value="Create">
-			</form>
+			<div class="containter">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<% if(warning) { %>
+							<div class="warning">
+			      		<p><%= warning %></p>
+			  			</div>
+			  		<% } %>
+			  	</div>
+			  </div>
+			  <div class="row">
+			  	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<h1><%= 'New Ride for ' + teamName + "'s " + eventName %></h1>
+						<form role="form" id="newRideForm" action=<%='/teams/'+teamName+'/'+eventName+'/newRide'%> method='post' class="form">
+							<div class="form-group">
+								<label for="time">Departure Time</label>
+								<input type="datetime-local" name="time"><br />
+							</div>
+							<div class="form-group">
+								<label for="form-group">Number of spaces available</label>
+								<input type="number" name="spots"><br />
+							</div>
+							<input type="submit" value="Create" class="btn btn-default">
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
