@@ -86,6 +86,19 @@ exports.find_by_id = function(teamID, callback) {
 }
 
 /*
+ * A hack-y last minute fix
+ */
+exports.find_by_id_hack_fix = function(teamID, callback) {
+	var crsr = db.collection(collection).find({'_id': teamID});
+	crsr.toArray(function(err, docs) {
+		if(err) {
+			doError(err);
+		}
+		callback(docs[0]);
+	});
+}
+
+/*
  * shows a team
  */
 exports.show = function(name, callback) {
