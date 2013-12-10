@@ -16,17 +16,35 @@
 		<% include navigation.ejs %>
 		<% } %>
 		<div id="mainContent">
-			<% if(warning) { %>
-			<div class="warning">
-		      <p><%= warning %></p>
-		  </div>
-		  <% } %>
-			<h1>Create a new Event</h1>
-			<form id="newEventForm" method="post" action=<%= '/teams/'+team.name+'/newEvent'%>>
-				Name<input type="text" name="name"><br>
-				Street<input type="text" name="street"><br>
-				City<input type="text" name="city"><br>
-				State<select name="state" id="state">
+			<div class="containter">
+			<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<% if(warning) { %>
+						<div class="warning">
+				      <p><%= warning %></p>
+				  	</div>
+				  	<% } %>
+				  </div>
+				</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<h1>Create a new Event</h1>
+					<form id="newEventForm" method="post" action=<%= '/teams/'+team.name+'/newEvent'%> role="form" class="form">
+						<div class="form-group">
+							<label for="name">Name</label><br>
+							<input type="text" name="name">
+						</div>
+						<div class="form-group">
+							<label for="street">Street</label><br>
+							<input type="text" name="street">
+						</div>
+						<div class="form-group">
+							<label for="city">City</label><br>
+							<input type="text" name="city">
+						</div>
+						<div class="form-group">
+							<label for="state">State</label><br>
+							<select name="state" id="state">
 								<option value="" selected>---</option>
 								<option value="AL">Alabama</option>
 								<option value="AK">Alaska</option>
@@ -79,12 +97,22 @@
 								<option value="WV">West Virginia</option>
 								<option value="WI">Wisconsin</option>
 								<option value="WY">Wyoming</option>
-							</select><br>
-				Zip<input type="text" name="zip"><br>
-				Date and Time<input type="datetime-local" name="datetime"><br>
-				<input type="hidden" name="teamName" value=<%= team.name%>>
-				<input type="submit" value="Create Event">
-			</form>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="zip">Zip</label><br>
+							<input type="text" name="zip">
+						</div>
+						<div class="form-group">
+							<label for="datetime">Date and Time</label><br>
+							<input type="datetime-local" name="datetime">
+						</div>
+						<input type="hidden" name="teamName" value=<%= team.name%>>
+						<input type="submit" value="Create Event" class="btn btn-default">
+					</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
