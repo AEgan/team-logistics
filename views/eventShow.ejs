@@ -44,14 +44,14 @@
 						<h1><%= theEvent.name %></h1>
 						<p><b><%= theEvent.name + " for " + team.name + " " + team.sport %></b><br/>
 							Location: <%= theEvent.street + " " + theEvent.city + " " + theEvent.state + " " + theEvent.zip %><br />
-							Start Time: <%= theEvent.dateTime %>
+							Start Time: <%= theEvent.date %>
 						</p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 						<p>
-							<img src=<%= map %> alt="map">
+							<img src=<%= map %> alt="map" class="profilePicture">
 						</p>
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">

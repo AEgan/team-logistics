@@ -179,3 +179,7 @@ a.details:hover {
 	border: 2px solid green;
 }
 
+.profilePicture {
+	width: 100%;
+}
+
