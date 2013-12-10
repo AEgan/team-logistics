@@ -17,49 +17,61 @@
     <% include navigation.ejs %>
     <% } %>
   	<div id="mainContent">
-      <%if(warning) { %>
-      <div class="warning">
-          <p><%= warning %></p>
-      </div>
-      <% } %>
-      <%if(success) { %>
-      <div class="success">
-          <p><%= success %></p>
-      </div>
-      <% } %>
-  		<h1><%= obj.username %></h1>
-      <table id="profileTable">
-        <tr>
-          <td>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <% if(warning) { %>
+            <div class="warning">
+                <p><%= warning %></p>
+            </div>
+            <% } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <% if(success) { %>
+            <div class="success">
+                <p><%= success %></p>
+            </div>
+            <% } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    		    <h1><%= obj.username %></h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
             <img src="../images/default_profile.jpg" width="300" height="264"><br>
             <b><%= obj.street %></b><br>
             <b><%= obj.city + ", " + obj.state %></b><br>
             <b><%= obj.zip %></b>
-          </td>
-          <td>
-            <% if(!teams || teams.length === 0) { %>
-              <b>This user is not currently a member of any teams</b>
-            <% } else { %>
-              <table class="stripedHoveredTable">
-                <thead>
-                  <th>Team</th>
-                  <th>Sport</th>
-                  <th>Coach</th>
-                </thead>
-                <tbody>
-                  <% for(var i = 0; i < teams.length; i++) { %>
-                    <tr>
-                      <td><a href=<%= '/teams/'+teams[i].name %>><%= teams[i].name %></a></td>
-                      <td><%= teams[i].sport %></td>
-                      <td><%= teams[i].coach %></td>
-                    </tr>
-                  <% } %>
-                </tbody>
-              </table>
-            <% } %>
-          </td>
-        </tr>
-      </table>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8">
+              <% if(!teams || teams.length === 0) { %>
+                <b>This user is not currently a member of any teams</b>
+              <% } else { %>
+                <table class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <th>Team</th>
+                    <th>Sport</th>
+                    <th>Coach</th>
+                  </thead>
+                  <tbody>
+                    <% for(var i = 0; i < teams.length; i++) { %>
+                      <tr>
+                        <td><a href=<%= '/teams/'+teams[i].name %>><%= teams[i].name %></a></td>
+                        <td><%= teams[i].sport %></td>
+                        <td><%= teams[i].coach %></td>
+                      </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              <% } %>
+            </div>
+          </div>
+        </div>
       </div>
   </body>
 </html>
