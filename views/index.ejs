@@ -28,13 +28,15 @@
 		  </div>
 		  <% } %>
 			<h1>Welcome to Team Logistics!</h1>
-			<ul>
-				<li>link to teams</li>
 				<% if(current_user) { %>
+				<p>Welcome back, <%= current_user.username %></p>
+				<p>View your profile <a href=<%='/users/'+current_user.username%>>here</a></p>
+				<p>There you can see the teams you are on and look at ride updates.</p>
 				<% } else { %>
-				<p>Not logged in</p>
+				<p>Welcome. If you would like to log in, <a href="/login">Click Here</a></p>
+				<p>If you are visiting our site for the first time, you may browse teams <a href="/teams">here</a></p>
+				<p>And if you woult like to start coordinating rides for your own team <a href="/signup">sign up!</a></p>
 				<% } %>
-			</ul>
 		</div>
 	</body>
 </html>

@@ -78,6 +78,16 @@ exports.add_rider_to_ride = function(rideID, riderID, callback) {
   });
 }
 
+exports.get_by_id = function(rideID, callback) {
+  var crsr = db.collection(collection).find({"_id": mongodb.ObjectID(rideID)});
+  crsr.toArray(function(err, docs) {
+    if(err) {
+      doError(err);
+    }
+    callback(docs);
+  })
+}
+
 /*
  * removes a rider from a ride
  */

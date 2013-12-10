@@ -12,7 +12,7 @@ exports.newMember = function(req, res) {
 	if(theUser) {
 		teams.list(function(teams) {
 			users.all(function(users) {
-				res.render('newMember', {"current_user": theUser, "users": users, "teams": teams, "warning": undefined});
+				res.render('newMember', {"current_user": theUser, "users": users, "teams": teams, "warning": undefined, 'teamName': req.params.name});
 			});
 		});
 	}

@@ -32,8 +32,8 @@ app.get('/teams/:name/newEvent', teams.newEventPage);
 app.post('/teams/:name/newEvent', teams.postNewEvent);
 app.get('/teams/:name/:event', teams.showEvent);
 app.get('/teams/:name/:event/rides', rides.index);
-app.get('/newTeamMember', team_members.newMember);
-app.post('/addnewmember', team_members.addMember);
+app.get('/newTeamMember/', team_members.newMember);
+app.post('/addnewmember/', team_members.addMember);
 app.get('/rides', rides.index);
 app.get('/teams/:name/:event/newRide', rides.create);
 app.post('/teams/:name/:event/newRide', rides.insert);
@@ -42,6 +42,7 @@ app.post('/login', users.auth);
 app.get('/logout', users.logout);
 app.get('/myProfile', users.myProfile);
 app.put('/addRideMember', rides.addRideMember);
+app.get('/teams/:name/:event/:rideID', rides.show);
 
 app.listen(12345);
 console.log("======================================");

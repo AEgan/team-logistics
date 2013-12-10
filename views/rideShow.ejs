@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Team Logistics</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="../../../javascripts/application.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../stylesheets/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../../stylesheets/application.css">
+	</head>
+	<body>
+		<% if(current_user) { %>
+		<% include loggedInNavigation.ejs %>
+		<% } else { %>
+		<% include navigation.ejs %>
+		<% } %>
+		<div class="container">
+			<div calss="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<table calss="table table-striped table-hover table-bordered">
+						<thead>
+							<th>Username</th>
+						</thead>
+						<tbody>
+							<% for(var i = 0; i < riders.length; i++) { %>
+							<tr>
+								<td><%= riders[i].username %></td>
+							</tr>
+							<% }%>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

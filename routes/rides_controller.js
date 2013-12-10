@@ -25,6 +25,9 @@ exports.index = function(req, res) {
 		});
 	});
 }
+/*
+ * show create page
+ */
 
 exports.create = function(req, res) {
 	var theUser = undefined;
@@ -61,7 +64,9 @@ exports.create = function(req, res) {
 		});
 	});
 }
-
+/*
+ * inserts a ride
+ */
 exports.insert = function(req, res) {
 	var theUser = undefined;
 	if(req.session && req.session.user) {
@@ -114,7 +119,9 @@ exports.insert = function(req, res) {
 		});
 	});
 }
-
+/*
+ * adds a ride member
+ */
 exports.addRideMember = function(req, res) {
 	var userID = undefined;
 	if(req.session && req.session.user) {
@@ -147,5 +154,24 @@ exports.addRideMember = function(req, res) {
 				}
 			});
 		}
+	});
+}
+
+exports.show = function(req, res) {
+	var rideID = req.params.rideID;
+	var team = req.params.name;
+	var eventName = req.params.event;
+	rides.get_by_id(rideID, function(docs) {
+		var theRide = docs[0];
+		var riders = theRide.riders;
+		var ridersReturning = [];
+		async.forEach(riders, function(item, callback){
+			users.find_by_id(item.riderID, function(rider) {
+				ridersReturning.push(rider);
+				callback();
+			});
+		}, function(err){
+			res.render('rideShow', {current_user: req.session.user, 'riders': ridersReturning, 'ride': theRide});
+		});
 	});
 }
