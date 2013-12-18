@@ -28,7 +28,15 @@ https://github.com/caolan/async
 and bcrypt, which can be found here
 https://github.com/ncb000gt/node.bcrypt.js
 
-This project is currently in development, and there are many known issues that will be addressed in the next few days. I will update this README with a list of known issues that have not been fixed by the time the project is due, and may go back to fix them at a later date.
+This assignment was submitted (at 11:59 lol) and the semester has ended. Some isues include 
+* Routing issues when the back button is pressed
+* Google maps geocoding issues (accessing attributes of 'undefined')
+* Terrible signup for team integration
+* no photo uploads, but didn't try to integrate that
+* deployed database, and I don't deal with connection errors
+* no email verification for sign ups
+
+These issues can be dealt with, mainly with more graceful error handling, and I may get to it later, but now I am more interested on other projects.
 
 This scope of this project is significantly larger than it had to be, and was originally designed the way an implementation in rails would be designed.
 I may go back and do this with rails, and if I do I will link the github repo.
